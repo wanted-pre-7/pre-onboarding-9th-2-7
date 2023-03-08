@@ -22,12 +22,15 @@ interface IReservation {
 
 const ReservationItem = ({ reservation }: IReservation) => {
   const { mutate: removeReservation } = productApis.RemoveReservation();
+  const { mutate: editReservation } = productApis.EditReservation(
+    reservation.id,
+  );
   const handleRemoveReservation = () => {
     removeReservation(reservation.id);
   };
 
   const handleEditReservation = useCallback((_: string, num: number) => {
-    console.log("변경", num);
+    editReservation(num);
   }, []);
 
   return (
