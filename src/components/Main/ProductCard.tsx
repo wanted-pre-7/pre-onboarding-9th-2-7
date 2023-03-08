@@ -9,20 +9,20 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import type { IProducts } from "../../pages/Main";
-// import ProductModal from "./ProductModal";
+import ProductModal from "./ProductModal";
 
 const ProductCard = (product: IProducts) => {
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
-      {/* {isModalOpen && (
+      {isModalOpen && (
         <ProductModal
           product={product}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
         />
-      )} */}
+      )}
 
       <Card
         shadow="none"
@@ -30,7 +30,7 @@ const ProductCard = (product: IProducts) => {
         maxH="400px"
         marginBottom="24px"
         cursor="pointer"
-        // onClick={() => setIsModalOpen(true)}
+        onClick={() => setIsModalOpen(true)}
       >
         <CardBody>
           <Image
