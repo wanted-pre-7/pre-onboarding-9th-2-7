@@ -11,8 +11,6 @@ import ProductModal from "../components/main/ProductModal";
 import useInput from "../hooks/useInput";
 import filterRange from "../utils/filterRange";
 
-const { minRange, maxRange, locationRange } = filterRange;
-
 const initialValue = {
   min: "",
   max: "",
@@ -29,18 +27,13 @@ const Main = () => {
   } = useInput(initialValue);
   const dispatch = useDispatch();
 
-  console.log(filter);
   const filterProductList = useMemo(() => {
     if (!productList) return [];
     const { min, max, location } = filter;
     if (!min && !max && !location) return productList;
     return productList.filter((product) => {
       const { price, spaceCategory } = product;
-      return (
-        minRange(min, price) &&
-        maxRange(max, price) &&
-        locationRange(location, spaceCategory)
-      );
+      return filterRange({ min, max, location, price, spaceCategory });
     });
   }, [productList, filter]);
 
