@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useAppSelector } from "../../app/hook";
 import CartIcon from "../cart/CartIcon";
 
 const ButtonStyle = styled.button`
@@ -30,12 +31,14 @@ const BadgeStyle = styled.span`
 `;
 
 const HeaderCartButton = () => {
+  const cartQuantity = useAppSelector((state) => state.cart.totalQuantity);
+
   return (
     <ButtonStyle>
       <IconStyle>
         <CartIcon />
       </IconStyle>
-      <BadgeStyle>0</BadgeStyle>
+      <BadgeStyle>{cartQuantity}</BadgeStyle>
     </ButtonStyle>
   );
 };
