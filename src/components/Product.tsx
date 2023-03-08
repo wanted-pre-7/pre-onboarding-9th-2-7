@@ -9,8 +9,11 @@ import {
   Divider,
   Button,
   ButtonGroup,
+  useToast,
 } from "@chakra-ui/react";
+import { useAppDispatch, useAppSelector } from "../app/hook";
 
+import { addCartItem } from "../features/cartSlice";
 import { IProduct } from "../type/product";
 
 interface Props {
@@ -18,6 +21,21 @@ interface Props {
 }
 
 const Product = ({ productsData }: Props) => {
+  const { cart } = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+  const toast = useToast();
+  console.log(cart);
+
+  const handleClickAddCart = () => {
+    dispatch(addCartItem(productsData));
+    toast({
+      description: "장바구니에 담겼습니다.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
   return (
     <Card maxW="sm">
       <CardBody>
@@ -39,7 +57,11 @@ const Product = ({ productsData }: Props) => {
           <Button variant="solid" colorScheme="blue">
             상세정보
           </Button>
-          <Button variant="ghost" colorScheme="blue">
+          <Button
+            variant="ghost"
+            colorScheme="blue"
+            onClick={() => dispatch(handleClickAddCart)}
+          >
             장바구니 담기
           </Button>
         </ButtonGroup>
