@@ -6,7 +6,11 @@ import {
   Image,
   Badge,
   Box,
+  useToast,
 } from "@chakra-ui/react";
+import { useAppDispatch, useAppSelector } from "../app/hook";
+import { addItem } from "../features/cartSlice";
+import type { IStateType } from "../features/cartSlice";
 import type { IProductType } from "../types/product";
 
 type PropsType = {
@@ -14,6 +18,22 @@ type PropsType = {
 };
 
 const Product = ({ info }: PropsType) => {
+  const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state) => state.cartSlice);
+  const toast = useToast();
+
+  const handleCartClick = () => {
+    const isIdx = cartItems.find((item: IStateType) => item.idx === info.idx);
+    if (!!isIdx)
+      toast({
+        title: "이미 장바구니에 추가한 상품입니다.",
+        status: "error",
+        duration: 3000,
+        position: "top",
+      });
+    else dispatch(addItem({ ...info, cnt: 1 }));
+  };
+
   return (
     <Box
       minW="200px"
@@ -43,7 +63,7 @@ const Product = ({ info }: PropsType) => {
           <Button variant="outline" colorScheme="cyan">
             자세히
           </Button>
-          <Button variant="solid" colorScheme="cyan">
+          <Button variant="solid" colorScheme="cyan" onClick={handleCartClick}>
             예약하기
           </Button>
         </ButtonGroup>
