@@ -105,6 +105,18 @@
       "registrationDate": "2023.01.01 15:07:00",
       "cnt": 1,
       "id": 1
+    },
+    {
+      "idx": 7,
+      "name": "ABC 페러글라이딩 이벤트 참여권",
+      "mainImage": "https://picsum.photos/id/27/300/300",
+      "description": "ABC 페러글라이딩 이벤트 참여권에 대한 내용입니다.",
+      "spaceCategory": "서울",
+      "price": 25000,
+      "maximumPurchases": 2,
+      "registrationDate": "2023.01.05 14:07:00",
+      "cnt": 1,
+      "id": 7
     }
   ]
 }

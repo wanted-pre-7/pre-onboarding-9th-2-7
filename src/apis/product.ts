@@ -2,7 +2,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 export interface IProduct {
-  id: number;
   idx: number;
   name: string;
   mainImage: string;
@@ -13,6 +12,7 @@ export interface IProduct {
   registrationDate: string;
 }
 export interface IReservationProduct extends IProduct {
+  id: number;
   cnt: number;
 }
 
@@ -35,7 +35,6 @@ const AddReservation = () => {
     async (data: IReservationProduct) => {
       const response = await axios.post(`http://localhost:3000/reservations`, {
         ...data,
-        id: data.idx,
       });
       return response;
     },
