@@ -1,5 +1,5 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-import type { IProduct } from '../components/Product';
+import type { IProduct } from '../components/common/Product';
 
 const initialReservationList: IProduct[] = [];
 
@@ -14,8 +14,10 @@ const reservationList = createSlice({
       return copyState;
     },
     delete: (state, action) => {
-      const { payload } = action;
-      return { ...state };
+      const { payload }: { payload: IProduct } = action;
+      let copyState = [...state];
+      copyState = copyState.filter((product) => product.idx !== payload.idx);
+      return copyState;
     },
     buyCount: (state, action) => {
       const { payload } = action;

@@ -5,10 +5,14 @@ const Product = ({
   product,
   getReservation,
   isReservated,
+  isDeleted,
+  handleDelete,
 }: {
   product: IProduct;
   getReservation?: () => void;
   isReservated?: boolean;
+  isDeleted?: boolean;
+  handleDelete?: () => void;
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -22,6 +26,7 @@ const Product = ({
       ) : (
         <button onClick={getReservation}>예약하기</button>
       )}
+      {isDeleted ? <button onClick={handleDelete}>삭제하기</button> : null}
       <ProductModal isOpen={isOpen} onClose={onClose} product={product} />
     </>
   );
