@@ -16,11 +16,13 @@ export interface IReservationProduct extends IProduct {
   cnt: number;
 }
 
+const SERVER_URL = "http://localhost:3000";
+
 const ReadProducts = () => {
   return useQuery<IProduct[]>(
     ["products"],
     async () => {
-      const response = await axios.get("http://localhost:3000/products");
+      const response = await axios.get(`${SERVER_URL}/products`);
       return response.data;
     },
     {
@@ -36,7 +38,7 @@ const ReadReservations = () => {
   return useQuery<IReservationProduct[]>(
     ["reservations"],
     async () => {
-      const response = await axios.get("http://localhost:3000/reservations");
+      const response = await axios.get(`${SERVER_URL}/reservations`);
       return response.data;
     },
     {
@@ -49,7 +51,7 @@ const ReadReservations = () => {
 const AddReservation = () => {
   return useMutation(
     async (data: IReservationProduct) => {
-      const response = await axios.post(`http://localhost:3000/reservations`, {
+      const response = await axios.post(`${SERVER_URL}/reservations`, {
         ...data,
       });
       return response;
@@ -64,10 +66,9 @@ const EditReservation = (id: number) => {
   const queryClient = useQueryClient();
   return useMutation(
     async (cnt: number) => {
-      const response = await axios.patch(
-        `http://localhost:3000/reservations/${id}`,
-        { cnt },
-      );
+      const response = await axios.patch(`${SERVER_URL}/reservations/${id}`, {
+        cnt,
+      });
       return response;
     },
     {
@@ -80,9 +81,7 @@ const RemoveReservation = () => {
   const queryClient = useQueryClient();
   return useMutation(
     async (id: number) => {
-      const response = await axios.delete(
-        `http://localhost:3000/reservations/${id}`,
-      );
+      const response = await axios.delete(`${SERVER_URL}/reservations/${id}`);
       return response;
     },
     {
