@@ -11,7 +11,7 @@ const Main = () => {
     <div>
       {!isLoading &&
         productsData.map((el: IProduct) => (
-          <Product key={el.idx} productsData={el} />
+          <Product key={el.idx} productData={el} />
         ))}
     </div>
   );
