@@ -7,12 +7,12 @@ const Reservation = ({ product }: { product: IProduct }) => {
   const dispatch = useDispatch();
   const handleDelete = () => {
     dispatch(reservationListActions.delete(product));
-    console.log('handleDelete');
   };
+
   return (
     <Product
       product={product}
-      isDeleted={true}
+      isReservationMode={true}
       isReservated={true}
       handleDelete={handleDelete}
     />
