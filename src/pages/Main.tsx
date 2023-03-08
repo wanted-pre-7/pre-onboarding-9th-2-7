@@ -1,4 +1,4 @@
-import { Center, space } from "@chakra-ui/react";
+import { Center } from "@chakra-ui/react";
 import React, { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import productApis from "../apis/product";
@@ -52,6 +52,7 @@ const Main = () => {
         filter={filter}
         handleChangeFilter={handleChangeFilter}
         handleReset={handleReset}
+        totalPrice={1000}
       />
       <Center
         display="grid"

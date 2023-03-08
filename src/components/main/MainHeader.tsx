@@ -12,20 +12,22 @@ interface IMainHeaderProps {
   };
   handleChangeFilter?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleReset?: () => void;
+  totalPrice?: number;
 }
 
 const MainHeader = ({
   filter,
   handleChangeFilter,
   handleReset,
+  totalPrice = 0,
 }: IMainHeaderProps) => {
   const mainMatch = useMatch("/main");
   const reservationMatch = useMatch("/reservations");
   const navigate = useNavigate();
 
   return (
-    <HeaderWrapper hasFilter={!!filter}>
-      {filter && (
+    <HeaderWrapper>
+      {filter ? (
         <InputWrapper>
           <NumberInputLabel>
             <span>가격</span>
@@ -59,6 +61,8 @@ const MainHeader = ({
             <ResetSvg />
           </ResetButton>
         </InputWrapper>
+      ) : (
+        <Price>총 결재액:{totalPrice}원</Price>
       )}
 
       <ButtonContainer>
@@ -139,10 +143,15 @@ const ResetButton = styled.button`
   color: white;
 `;
 
-const HeaderWrapper = styled.div<{ hasFilter: boolean }>`
+const HeaderWrapper = styled.div`
   display: flex;
-  justify-content: ${(props) =>
-    props.hasFilter ? "space-between" : "flex-end"};
+  justify-content: space-between;
   margin-bottom: 20px;
   align-items: center;
+`;
+
+const Price = styled.h3`
+  display: flex;
+  align-items: center;
+  font-weight: 600;
 `;
