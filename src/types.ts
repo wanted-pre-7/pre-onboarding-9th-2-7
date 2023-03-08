@@ -6,5 +6,5 @@ export interface IProduct {
   spaceCategory: string;
   price: number;
   maximumPurchases: number;
-  registrationDate: Date;
+  registrationDate: string;
 }
