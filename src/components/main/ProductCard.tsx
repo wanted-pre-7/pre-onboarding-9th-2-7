@@ -10,7 +10,10 @@ import {
   Image,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
+import { addCart } from "../../features/cartSlice";
 import type { IProduct } from "../../types/product";
 
 interface Props {
@@ -19,6 +22,34 @@ interface Props {
 }
 
 const ProductCard = ({ product, handleClickModal }: Props) => {
+  const { cart } = useAppSelector((state) => state);
+  const toast = useToast();
+
+  const dispatch = useAppDispatch();
+  const cartLength = cart.filter((item) => item.idx === product.idx).length + 1;
+
+  const handleClickCart = (product: IProduct) => {
+    if (cartLength <= product.maximumPurchases) {
+      dispatch(addCart(product));
+
+      toast({
+        title: "성공적으로 장바구니에 담겼습니다.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+    } else {
+      toast({
+        title: "최대 구매 개수를 초과하였습니다.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+    }
+  };
+
   return (
     <Card
       maxW="sm"
@@ -60,7 +91,11 @@ const ProductCard = ({ product, handleClickModal }: Props) => {
           >
             더보기
           </Button>
-          <Button variant="ghost" colorScheme="blue">
+          <Button
+            variant="ghost"
+            colorScheme="blue"
+            onClick={() => handleClickCart(product)}
+          >
             예약하기
           </Button>
         </ButtonGroup>
