@@ -1,7 +1,9 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { count } from 'console';
 import type { IProduct } from '../components/common/Product';
 
 const initialReservationList: IProduct[] = [];
+const initialPurchaseList: IPurchase[] = [];
 
 const reservationList = createSlice({
   name: 'reservationList',
@@ -19,9 +21,36 @@ const reservationList = createSlice({
       copyState = copyState.filter((product) => product.idx !== payload.idx);
       return copyState;
     },
-    buyCount: (state, action) => {
+  },
+});
+
+const purchaseList = createSlice({
+  name: 'purcharseList',
+  initialState: initialPurchaseList,
+  reducers: {
+    add: (state, action) => {
+      const { payload }: { payload: IPurchase } = action;
+      const copyState = [...state];
+      copyState.push(payload);
+      return copyState;
+    },
+    count: (state, action) => {
       const { payload } = action;
-      return { ...state };
+      const copyState = [...state];
+      return copyState.map((purchase) =>
+        purchase.idx === payload
+          ? { ...purchase, count: purchase.count + 1 }
+          : { ...purchase },
+      );
+    },
+    discount: (state, action) => {
+      const { payload } = action;
+      const copyState = [...state];
+      return copyState.map((purchase) =>
+        purchase.idx === payload
+          ? { ...purchase, count: purchase.count - 1 }
+          : { ...purchase },
+      );
     },
   },
 });
@@ -29,11 +58,21 @@ const reservationList = createSlice({
 export const store = configureStore({
   reducer: {
     reservationList: reservationList.reducer,
+    purchaseList: purchaseList.reducer,
   },
 });
 
 export const reservationListActions = reservationList.actions;
+export const purchaseListActions = purchaseList.actions;
 
 export interface IState {
   reservationList: IProduct[];
+  purchaseList: IPurchase[];
+}
+
+interface IPurchase {
+  idx: number;
+  price: number;
+  maximumPurchases: number;
+  count: number;
 }
