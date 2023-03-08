@@ -12,12 +12,18 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import type { IProduct } from "../../apis/product";
+import productApis from "../../apis/product";
 
 interface IProps {
   product: IProduct;
 }
 
 const ProductItem = ({ product }: IProps) => {
+  const { mutate: addReservation } = productApis.AddReservation();
+
+  const handleAddReservation = () => {
+    addReservation({ ...product, cnt: 1 });
+  };
   return (
     <Card
       w={"full"}
@@ -56,7 +62,11 @@ const ProductItem = ({ product }: IProps) => {
       <Divider color="lightgray" />
       <CardFooter w="full">
         <ButtonGroup display="flex" justifyContent="space-between" w="full">
-          <Button variant="solid" colorScheme="blue">
+          <Button
+            variant="solid"
+            colorScheme="blue"
+            onClick={handleAddReservation}
+          >
             예약하기
           </Button>
           <Button variant="ghost" colorScheme="blue">
