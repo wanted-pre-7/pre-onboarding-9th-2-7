@@ -1,17 +1,11 @@
 import styled from "@emotion/styled";
-import Header from "./Header";
 
 interface ILayout {
   children: JSX.Element | JSX.Element[];
 }
 
 const Layout = ({ children }: ILayout) => {
-  return (
-    <Wrapper>
-      <Header />
-      {children}
-    </Wrapper>
-  );
+  return <Wrapper>{children}</Wrapper>;
 };
 
 export default Layout;

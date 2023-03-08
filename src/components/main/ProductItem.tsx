@@ -30,6 +30,8 @@ const ProductItem = ({ product, handleOpenModal }: IProps) => {
       <Card
         w={"full"}
         h={"full"}
+        maxW={"400px"}
+        mx="auto"
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"xl"}
         rounded={"lg"}
