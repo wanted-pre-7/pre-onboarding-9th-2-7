@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import Main from "./pages/main";
-import Cart from "./pages/cart";
+import Main from "./pages/Main";
+import Cart from "./pages/Cart";
 
 const App = () => {
   return (
