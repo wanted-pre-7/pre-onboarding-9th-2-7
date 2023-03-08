@@ -117,7 +117,7 @@ const GlobalStyle = () => (
       }
       body {
         font-family: "Spoqa Han Sans Neo", "sans-serif";
-        line-height: 1;
+        line-height: 1.5;
       }
       menu,
       ol,
