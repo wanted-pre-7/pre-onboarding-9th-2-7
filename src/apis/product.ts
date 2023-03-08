@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 export interface IProduct {
@@ -26,6 +26,22 @@ const ReadProducts = () => {
     {
       retry: 0,
       refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: Infinity,
+    },
+  );
+};
+
+const ReadReservations = () => {
+  return useQuery<IReservationProduct[]>(
+    ["reservations"],
+    async () => {
+      const response = await axios.get("http://localhost:3000/reservations");
+      return response.data;
+    },
+    {
+      retry: 0,
+      refetchOnWindowFocus: false,
     },
   );
 };
@@ -44,5 +60,42 @@ const AddReservation = () => {
   );
 };
 
-const productApis = { ReadProducts, AddReservation };
+const EditReservation = (id: number) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async (cnt: number) => {
+      const response = await axios.patch(
+        `http://localhost:3000/reservations/${id}`,
+        { cnt },
+      );
+      return response;
+    },
+    {
+      onSuccess: () => queryClient.invalidateQueries(["reservations"]),
+    },
+  );
+};
+
+const RemoveReservation = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async (id: number) => {
+      const response = await axios.delete(
+        `http://localhost:3000/reservations/${id}`,
+      );
+      return response;
+    },
+    {
+      onSuccess: () => queryClient.invalidateQueries(["reservations"]),
+    },
+  );
+};
+
+const productApis = {
+  ReadProducts,
+  ReadReservations,
+  AddReservation,
+  RemoveReservation,
+  EditReservation,
+};
 export default productApis;

@@ -5,13 +5,13 @@ import ResetSvg from "../../assets/svg/ResetSvg";
 import ShopSvg from "../../assets/svg/ShopSvg";
 
 interface IMainHeaderProps {
-  filter: {
+  filter?: {
     min: string;
     max: string;
     location: string;
   };
-  handleChangeFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleReset: () => void;
+  handleChangeFilter?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleReset?: () => void;
 }
 
 const MainHeader = ({
@@ -24,40 +24,43 @@ const MainHeader = ({
   const navigate = useNavigate();
 
   return (
-    <HeaderWrapper>
-      <InputWrapper>
-        <NumberInputLabel>
-          <span>가격</span>
-          <Input
-            type="number"
-            placeholder="0"
-            onChange={handleChangeFilter}
-            name="min"
-            value={filter.min}
-          />
-          ~
-          <Input
-            type="number"
-            placeholder="0"
-            onChange={handleChangeFilter}
-            name="max"
-            value={filter.max}
-          />
-        </NumberInputLabel>
-        <TextInputLabel>
-          <span>지역</span>
-          <Input
-            type="text"
-            placeholder="서울"
-            onChange={handleChangeFilter}
-            name="location"
-            value={filter.location}
-          />
-        </TextInputLabel>
-        <ResetButton onClick={handleReset}>
-          <ResetSvg />
-        </ResetButton>
-      </InputWrapper>
+    <HeaderWrapper hasFilter={!!filter}>
+      {filter && (
+        <InputWrapper>
+          <NumberInputLabel>
+            <span>가격</span>
+            <Input
+              type="number"
+              placeholder="0"
+              onChange={handleChangeFilter}
+              name="min"
+              value={filter.min}
+            />
+            ~
+            <Input
+              type="number"
+              placeholder="0"
+              onChange={handleChangeFilter}
+              name="max"
+              value={filter.max}
+            />
+          </NumberInputLabel>
+          <TextInputLabel>
+            <span>지역</span>
+            <Input
+              type="text"
+              placeholder="서울"
+              onChange={handleChangeFilter}
+              name="location"
+              value={filter.location}
+            />
+          </TextInputLabel>
+          <ResetButton onClick={handleReset}>
+            <ResetSvg />
+          </ResetButton>
+        </InputWrapper>
+      )}
+
       <ButtonContainer>
         <Button isMatch={!!mainMatch} onClick={() => navigate("/main")}>
           <GridSvg />
@@ -136,9 +139,10 @@ const ResetButton = styled.button`
   color: white;
 `;
 
-const HeaderWrapper = styled.div`
+const HeaderWrapper = styled.div<{ hasFilter: boolean }>`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${(props) =>
+    props.hasFilter ? "space-between" : "flex-end"};
   margin-bottom: 20px;
   align-items: center;
 `;

@@ -11,19 +11,24 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import type { IProduct } from "../../apis/product";
+import { useCallback } from "react";
+import type { IReservationProduct } from "../../apis/product";
 import productApis from "../../apis/product";
+import NumberInput from "./NumberInput";
 
-interface IProps {
-  product: IProduct;
-  handleOpenModal: (product: IProduct) => void;
+interface IReservation {
+  reservation: IReservationProduct;
 }
-const ProductItem = ({ product, handleOpenModal }: IProps) => {
-  const { mutate: addReservation } = productApis.AddReservation();
 
-  const handleAddReservation = () => {
-    addReservation({ ...product, cnt: 1, id: product.idx });
+const ReservationItem = ({ reservation }: IReservation) => {
+  const { mutate: removeReservation } = productApis.RemoveReservation();
+  const handleRemoveReservation = () => {
+    removeReservation(reservation.id);
   };
+
+  const handleEditReservation = useCallback((_: string, num: number) => {
+    console.log("변경", num);
+  }, []);
 
   return (
     <Card
@@ -46,38 +51,36 @@ const ProductItem = ({ product, handleOpenModal }: IProps) => {
           textOverflow="ellipsis"
           overflow="hidden"
         >
-          {product.idx}. {product.name}
+          {reservation.idx}. {reservation.name}
         </Heading>
 
         <Image
           rounded={"lg"}
           objectFit={"cover"}
-          src={product.mainImage}
+          src={reservation.mainImage}
           mb={2}
         />
         <Stack>
-          <Text fontSize="sm">{product.spaceCategory}</Text>
+          <Text fontSize="sm">{reservation.spaceCategory}</Text>
           <Text fontSize="lg" fontWeight="semibold">
-            {product.price}원
+            {reservation.price}원
           </Text>
         </Stack>
       </CardBody>
       <Divider color="lightgray" />
       <CardFooter w="full">
         <ButtonGroup display="flex" justifyContent="space-between" w="full">
-          <Button
-            variant="solid"
-            colorScheme="blue"
-            onClick={handleAddReservation}
-          >
-            예약하기
-          </Button>
+          <NumberInput
+            cnt={reservation.cnt}
+            maximumPurchases={reservation.maximumPurchases}
+            onChange={handleEditReservation}
+          />
           <Button
             variant="ghost"
             colorScheme="blue"
-            onClick={() => handleOpenModal(product)}
+            onClick={handleRemoveReservation}
           >
-            자세히 보기
+            삭제하기
           </Button>
         </ButtonGroup>
       </CardFooter>
@@ -85,4 +88,4 @@ const ProductItem = ({ product, handleOpenModal }: IProps) => {
   );
 };
 
-export default ProductItem;
+export default ReservationItem;
