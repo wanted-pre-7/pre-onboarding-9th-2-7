@@ -13,14 +13,17 @@ const Main = () => {
     queryFn: getProducts,
     suspense: true,
   });
-  const [[minPrice, maxPrice], setPrice] = useState<number[]>([0, 30000]);
-  const [space, setSpace] = useState<string[]>([
-    "서울",
-    "강원",
-    "대구",
-    "부산",
-    "제주",
+  const spaceList: string[] = [];
+  const priceList: number[] = [];
+  productsData.forEach((el: IProduct) => {
+    spaceList.push(el.spaceCategory);
+    priceList.push(el.price);
+  });
+  const [[minPrice, maxPrice], setPrice] = useState<number[]>([
+    Math.min(...priceList),
+    Math.max(...priceList),
   ]);
+  const [space, setSpace] = useState<string[]>(spaceList);
 
   const filteredItems = productsData?.filter((el: IProduct) => {
     return (
