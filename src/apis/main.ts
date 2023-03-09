@@ -1,3 +1,12 @@
+import { useQuery } from '@tanstack/react-query';
 import { client } from './instance';
 
-export const getProduct = client.get('/products').then(({ data }) => data);
+export const getProducts = () => client.get('/products');
+
+export const useGetOriginProducts = () => {
+  return useQuery({
+    queryKey: ['products'],
+    queryFn: getProducts,
+    suspense: true,
+  });
+};
