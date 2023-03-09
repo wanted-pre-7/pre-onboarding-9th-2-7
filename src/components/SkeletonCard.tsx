@@ -15,7 +15,7 @@ const SkeletonCard = ({ length }: { length: number }) => {
             width="100%"
             padding="5"
           >
-            <Skeleton height="290px" borderRadius="lg" />
+            <Skeleton height={{ sm: "300px", md: "200px" }} borderRadius="lg" />
             <Box>
               <SkeletonText
                 mt="4"
