@@ -1,15 +1,4 @@
-import {
-  Box,
-  Container,
-  Grid,
-  Heading,
-  RangeSlider,
-  RangeSliderFilledTrack,
-  RangeSliderThumb,
-  RangeSliderTrack,
-  Select,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Container, Grid, Heading, useDisclosure } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { getProducts } from "../api";
@@ -53,7 +42,6 @@ const Main = () => {
   return (
     <Container as="section" maxW="1280px" padding="10">
       <Box mb="8">
-        {/* <Box display="flex" gap="8"> */}
         <Filter
           maxPrice={maxPrice}
           minPrice={minPrice}
@@ -61,7 +49,6 @@ const Main = () => {
           setSpaces={setSpaceCategory}
           spaces={spaceCategory}
         />
-        {/* </Box> */}
       </Box>
       <Grid
         placeItems={{ sm: "center", md: "normal" }}

@@ -1,6 +1,5 @@
 import { Box, Container, Grid, Heading } from "@chakra-ui/react";
 import { useAppSelector } from "../app/hook";
-// import ProductCard from "../components/main/ProductCard";
 import ReservationCard from "../components/reservations/ReservationCard";
 import { getTotal } from "../utils/getTotals";
 
