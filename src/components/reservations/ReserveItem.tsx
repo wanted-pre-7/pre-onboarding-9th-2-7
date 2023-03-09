@@ -60,6 +60,7 @@ const ReserveItem = (item: IReserveProduct) => {
           </Heading>
 
           <Text py="2">{description}</Text>
+          <Text>{price.toLocaleString()}원</Text>
         </CardBody>
 
         <FooterWrap>
