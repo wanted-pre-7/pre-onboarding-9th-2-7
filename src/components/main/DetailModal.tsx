@@ -12,7 +12,12 @@ import {
 import styled from "@emotion/styled";
 import type { IModalProps } from "../../types";
 
-const DetailModal = ({ isOpen, onClose, product }: IModalProps) => {
+const DetailModal = ({
+  isOpen,
+  onClose,
+  product,
+  onAddProduct,
+}: IModalProps) => {
   const {
     idx,
     name,
@@ -42,7 +47,7 @@ const DetailModal = ({ isOpen, onClose, product }: IModalProps) => {
           <p>등록일: {registrationDate}</p>
         </ModalBody>
         <ModalFooter>
-          <Button>예약</Button>
+          <Button onClick={onAddProduct}>예약</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

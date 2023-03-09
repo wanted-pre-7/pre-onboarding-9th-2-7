@@ -7,6 +7,7 @@ import {
   Stack,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useAppDispatch, useAppSelector } from "../../hook";
@@ -15,8 +16,17 @@ import type { IProduct } from "../../types";
 import DetailModal from "./DetailModal";
 
 const Product = (product: IProduct) => {
-  const { idx, name, mainImage, description, spaceCategory, price } = product;
+  const {
+    idx,
+    name,
+    mainImage,
+    description,
+    spaceCategory,
+    price,
+    maximumPurchases,
+  } = product;
 
+  const toast = useToast();
   const dispatch = useAppDispatch();
   const reserveList = useAppSelector((state) => state.reserveList);
   const isReserved = reserveList.find((item) => item.idx === idx);
@@ -28,8 +38,40 @@ const Product = (product: IProduct) => {
   };
 
   const onAddProduct = () => {
-    const reserveProduct = { ...product, count: 1 };
-    dispatch(reserveActions.add(reserveProduct));
+    const index = reserveList.findIndex((el) => el.idx === idx);
+
+    if (!isReserved) {
+      const reserveProduct = { ...product, count: 1 };
+      dispatch(reserveActions.add(reserveProduct));
+      toast({
+        description: "상품이 장바구니에 담겼습니다.",
+        position: "top-right",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    if (reserveList[index].count < maximumPurchases) {
+      dispatch(reserveActions.addCount(idx));
+      toast({
+        description: "상품 수량을 추가 하였습니다.",
+        position: "top-right",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    toast({
+      description: "이미 최대수량이 담겨있습니다.",
+      position: "top-right",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
   };
 
   return (
@@ -50,13 +92,18 @@ const Product = (product: IProduct) => {
               {price.toLocaleString()}원
             </Text>
             <Button variant="solid" colorScheme="blue" onClick={onAddProduct}>
-              {isReserved ? "예약완료" : "예약"}
+              예약
             </Button>
           </InfoWrap>
         </ProductBody>
       </ProductWrap>
 
-      <DetailModal isOpen={isOpen} onClose={onClose} product={product} />
+      <DetailModal
+        isOpen={isOpen}
+        onClose={onClose}
+        product={product}
+        onAddProduct={onAddProduct}
+      />
     </>
   );
 };

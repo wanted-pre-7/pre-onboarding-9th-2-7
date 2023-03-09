@@ -13,6 +13,7 @@ export interface IModalProps {
   isOpen: boolean;
   onClose: () => void;
   product: IProduct;
+  onAddProduct: () => void;
 }
 
 export interface IReserveProduct extends IProduct {
