@@ -17,7 +17,8 @@ import {
 import { useAppDispatch, useAppSelector } from "../app/hook";
 import { addCartItem } from "../features/cartSlice";
 import ProductModal from "./ProductModal";
-import { IProduct } from "../type/product";
+import type { IProduct } from "../type/product";
+import type { IcartItem } from "../features/cartSlice";
 
 interface Props {
   productData: IProduct;
@@ -30,13 +31,25 @@ const Product = ({ productData }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClickAddCart = () => {
-    dispatch(addCartItem(productData));
-    toast({
-      description: "장바구니에 담겼습니다.",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
+    const cartItem: IcartItem | undefined = cart.items.find(
+      (el) => el.idx === productData.idx,
+    );
+    if (!cartItem || productData?.maximumPurchases > cartItem?.quantity) {
+      dispatch(addCartItem(productData));
+      toast({
+        description: "장바구니에 담겼습니다.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        description: "해당 상품의 최대구매 수량을 초과했습니다.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -69,7 +82,7 @@ const Product = ({ productData }: Props) => {
             <Button
               variant="ghost"
               colorScheme="blue"
-              onClick={() => dispatch(handleClickAddCart)}
+              onClick={() => handleClickAddCart()}
             >
               장바구니 담기
             </Button>

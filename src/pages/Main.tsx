@@ -6,7 +6,7 @@ import { IProduct } from "../type/product";
 
 const Main = () => {
   const { data: productsData, isLoading } = useQuery(["product"], getProducts);
-  console.log(productsData, isLoading);
+
   return (
     <div>
       {!isLoading &&
