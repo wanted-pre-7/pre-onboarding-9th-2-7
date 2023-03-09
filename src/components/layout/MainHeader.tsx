@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
+import { useSelector } from "react-redux";
 import { useMatch, useNavigate } from "react-router-dom";
+import type { RootState } from "../../app/store";
 import GridSvg from "../../assets/svg/GridSvg";
 import ResetSvg from "../../assets/svg/ResetSvg";
 import ShopSvg from "../../assets/svg/ShopSvg";
@@ -24,6 +26,9 @@ const MainHeader = ({
   const mainMatch = useMatch("/main");
   const reservationMatch = useMatch("/reservations");
   const navigate = useNavigate();
+  const { totalCnt } = useSelector<RootState, { totalCnt: number }>(
+    (state) => state.reservation,
+  );
 
   return (
     <HeaderWrapper>
@@ -73,6 +78,7 @@ const MainHeader = ({
           isMatch={!!reservationMatch}
           onClick={() => navigate("/reservations")}
         >
+          <CartCnt>{totalCnt}</CartCnt>
           <ShopSvg />
         </Button>
       </ButtonContainer>
@@ -118,18 +124,24 @@ const Input = styled.input`
 const ButtonContainer = styled.div`
   display: flex;
   border-radius: 10px;
-  overflow: hidden;
 `;
 
 const Button = styled.button<{ isMatch?: boolean }>`
-  width: 35px;
-  height: 35px;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 35px;
+  height: 35px;
   background-color: ${(props) =>
     props.isMatch ? "#4a9ef8" : "rgba(0,0,0,0.3)"};
   color: white;
+  &:first-of-type {
+    border-radius: 10px 0px 0px 10px;
+  }
+  &:last-of-type {
+    border-radius: 0px 10px 10px 0px;
+  }
 `;
 
 const ResetButton = styled.button`
@@ -154,4 +166,20 @@ const Price = styled.h3`
   display: flex;
   align-items: center;
   font-weight: 600;
+`;
+
+const CartCnt = styled.span`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 13px;
+  background-color: #fb3131;
+  color: white;
+
+  border-radius: 50%;
+  top: -10px;
+  right: -10px;
 `;

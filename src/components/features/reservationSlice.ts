@@ -3,6 +3,7 @@ import type { IReservationProduct } from "../../types/product";
 
 const initialState = {
   reservationList: [] as IReservationProduct[],
+  totalCnt: 0,
 };
 
 const reservationSlice = createSlice({
@@ -11,17 +12,22 @@ const reservationSlice = createSlice({
   reducers: {
     addReservation: (state, action) => {
       state.reservationList.push(action.payload);
+      state.totalCnt = ++state.totalCnt;
     },
     removeReservation: (state, action) => {
       state.reservationList = state.reservationList.filter(
         (reservation) => reservation.idx !== action.payload.idx,
       );
+      state.totalCnt = state.totalCnt - action.payload.cnt;
     },
     editReservation: (state, action) => {
       const target = state.reservationList.find(
         (reservation) => reservation.idx === action.payload.idx,
       );
-      if (target) target.cnt = action.payload.cnt;
+      if (target) {
+        state.totalCnt = state.totalCnt - target.cnt + action.payload.cnt;
+        target.cnt = action.payload.cnt;
+      }
     },
   },
 });

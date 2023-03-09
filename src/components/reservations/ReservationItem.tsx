@@ -30,7 +30,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
   const toast = useToast();
 
   const handleRemoveReservation = () => {
-    dispatch(removeReservation({ idx: reservation.idx }));
+    dispatch(removeReservation(reservation));
     toast({
       title: "상품 예약이 삭제되었습니다.",
       status: "success",
@@ -41,7 +41,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
   };
 
   const handleEditReservation = useCallback((_: string, num: number) => {
-    dispatch(editReservation({ idx: reservation.idx, cnt: num }));
+    dispatch(editReservation({ ...reservation, cnt: num }));
     if (reservation.maximumPurchases === num) {
       toast({
         title: `해당 상품의 최대 수량은 ${reservation.maximumPurchases}개 입니다.`,
