@@ -27,7 +27,7 @@ const Product = (product: IProduct) => {
     onOpen();
   };
 
-  const addReservation = () => {
+  const onAddProduct = () => {
     const reserveProduct = { ...product, count: 1 };
     dispatch(reserveActions.add(reserveProduct));
   };
@@ -49,7 +49,7 @@ const Product = (product: IProduct) => {
             <Text color="blue.600" fontSize="lg">
               {price.toLocaleString()}원
             </Text>
-            <Button variant="solid" colorScheme="blue" onClick={addReservation}>
+            <Button variant="solid" colorScheme="blue" onClick={onAddProduct}>
               {isReserved ? "예약완료" : "예약"}
             </Button>
           </InfoWrap>

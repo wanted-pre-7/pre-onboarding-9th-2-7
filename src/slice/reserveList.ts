@@ -10,6 +10,9 @@ const reserveList = createSlice({
     add: (state, action) => {
       state.push(action.payload);
     },
+    delete: (state, action) => {
+      return state.filter((product) => product.idx !== action.payload);
+    },
   },
 });
 
