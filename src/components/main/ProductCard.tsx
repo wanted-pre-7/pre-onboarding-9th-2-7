@@ -30,26 +30,15 @@ const ProductCard = ({ product, handleClickModal }: Props) => {
   const matchedCart = cart.find((item) => item.idx === product.idx);
 
   const handleClickCart = () => {
-    if (product.maximumPurchases === matchedCart?.quantity) {
-      toast({
-        title: `${product.name} 최대 구매 개수 초과`,
-        description: `인 당 ${product.maximumPurchases}개만 구매하실 수 있습니다.`,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-right",
-      });
-    } else {
-      dispatch(addCart({ ...product, quantity: 1 }));
+    dispatch(addCart({ ...product, quantity: 1 }));
 
-      toast({
-        title: "성공적으로 장바구니에 담겼습니다.",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-right",
-      });
-    }
+    toast({
+      title: `${product.name} 상품이 장바구니에 추가되었습니다.`,
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "bottom-right",
+    });
   };
 
   return (
