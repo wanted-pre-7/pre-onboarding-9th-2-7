@@ -3,7 +3,7 @@ import SkeletonCard from "./SkeletonCard";
 
 const SkeletonUi = () => {
   return (
-    <Container maxW="1280px" padding="10" mt="72px">
+    <Container maxW="1280px" padding="10" mt={{ sm: "320px", md: "180px" }}>
       <Grid
         templateColumns="repeat(auto-fill, minmax(15rem, 1fr))"
         gap={10}

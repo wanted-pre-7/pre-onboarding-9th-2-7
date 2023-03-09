@@ -12,10 +12,10 @@ const SkeletonCard = ({ length }: { length: number }) => {
             borderWidth="1px"
             borderRadius="lg"
             bg="white"
-            width="100%"
+            width={{ sm: "340px", md: "100%" }}
             padding="5"
           >
-            <Skeleton height={{ sm: "300px", md: "200px" }} borderRadius="lg" />
+            <Skeleton height={{ sm: "232px", md: "200px" }} borderRadius="lg" />
             <Box>
               <SkeletonText
                 mt="4"
