@@ -1,7 +1,7 @@
 import { HStack, Box, Heading, Badge } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-import CartIcon from "./CartIcon";
+import CartIcon from "./cart/CartIcon";
 import { useAppSelector } from "../app/hook";
 
 const Header = () => {
@@ -21,7 +21,7 @@ const Header = () => {
 
           <Link to={"/reservations"}>
             <CartIcon />
-            <Badge>{cart.totalQuantitiy}</Badge>
+            <Badge colorScheme={"blue"}>{cart.totalQuantitiy}</Badge>
           </Link>
         </Box>
       </HStack>

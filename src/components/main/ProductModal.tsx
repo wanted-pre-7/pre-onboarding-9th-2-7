@@ -14,7 +14,7 @@ import {
   Badge,
 } from "@chakra-ui/react";
 
-import type { IProduct } from "../type/product";
+import type { IProduct } from "../../type/product";
 
 interface ModalProps {
   isOpen: boolean;

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getProducts } from "../api/main";
-import Product from "../components/Product";
+import Product from "../components/main/Product";
 import { IProduct } from "../type/product";
 
 const Main = () => {

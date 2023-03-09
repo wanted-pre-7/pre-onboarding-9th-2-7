@@ -14,11 +14,11 @@ import {
   Badge,
   Flex,
 } from "@chakra-ui/react";
-import { useAppDispatch, useAppSelector } from "../app/hook";
-import { addCartItem } from "../features/cartSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
+import { addCartItem } from "../../features/cartSlice";
 import ProductModal from "./ProductModal";
-import type { IProduct } from "../type/product";
-import type { IcartItem } from "../features/cartSlice";
+import type { IProduct } from "../../type/product";
+import type { IcartItem } from "../../features/cartSlice";
 
 interface Props {
   productData: IProduct;
@@ -30,7 +30,7 @@ const Product = ({ productData }: Props) => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleClickAddCart = () => {
+  const handleClickAddCart = (productData: IProduct) => {
     const cartItem: IcartItem | undefined = cart.items.find(
       (el) => el.idx === productData.idx,
     );
@@ -62,15 +62,15 @@ const Product = ({ productData }: Props) => {
             borderRadius="lg"
           />
           <Stack mt="6" spacing="3">
-            <Heading size="md">{`${productData.idx}. ${productData.name}`}</Heading>
             <Flex>
-              <Text color="blue.600" fontSize="2xl">
-                {`${productData.price.toLocaleString("ko-KR")}원`}
-              </Text>
+              <Heading size="md">{`${productData.idx}. ${productData.name}`}</Heading>
               <Badge ml="1" fontSize="0.8em">
                 {productData.spaceCategory}
               </Badge>
             </Flex>
+            <Text color="blue.600" fontSize="2xl">
+              {`${productData.price.toLocaleString("ko-KR")}원`}
+            </Text>
           </Stack>
         </CardBody>
         <Divider />
@@ -82,7 +82,7 @@ const Product = ({ productData }: Props) => {
             <Button
               variant="ghost"
               colorScheme="blue"
-              onClick={() => handleClickAddCart()}
+              onClick={() => handleClickAddCart(productData)}
             >
               장바구니 담기
             </Button>
