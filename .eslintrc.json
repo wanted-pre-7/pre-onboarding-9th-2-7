@@ -29,6 +29,7 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
     "no-shadow": "warn",
     "react/react-in-jsx-scope": "off",
     "react/jsx-uses-react": "off",
