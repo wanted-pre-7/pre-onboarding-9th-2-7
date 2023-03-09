@@ -41,8 +41,14 @@ const cartSlice = createSlice({
       state.totalQuantitiy = state.items.length;
       state.totalPrice -= action.payload.priceSum;
     },
+    decreaseQuantity: (state, action: PayloadAction<IcartItem>) => {
+      const item = state.items.find((el) => action.payload.idx === el.idx);
+      item!.quantity--;
+      item!.priceSum -= item!.price;
+    },
   },
 });
 
-export const { addCartItem, removeCartItem } = cartSlice.actions;
+export const { addCartItem, removeCartItem, decreaseQuantity } =
+  cartSlice.actions;
 export default cartSlice;

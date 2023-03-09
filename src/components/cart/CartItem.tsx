@@ -17,7 +17,11 @@ import {
   NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { useAppDispatch } from "../../app/hook";
-import { addCartItem, removeCartItem } from "../../features/cartSlice";
+import {
+  addCartItem,
+  removeCartItem,
+  decreaseQuantity,
+} from "../../features/cartSlice";
 
 import type { IcartItem } from "../../features/cartSlice";
 
@@ -49,16 +53,26 @@ const CartItem = ({ cartItem }: { cartItem: IcartItem }) => {
             <NumberInputStepper>
               <NumberIncrementStepper
                 onClick={() => {
-                  dispatch(addCartItem(cartItem));
+                  cartItem.maximumPurchases > cartItem.quantity
+                    ? dispatch(addCartItem(cartItem))
+                    : null;
                 }}
               />
-              <NumberDecrementStepper />
+              <NumberDecrementStepper
+                onClick={() => {
+                  cartItem.quantity > 0
+                    ? dispatch(decreaseQuantity(cartItem))
+                    : null;
+                }}
+              />
             </NumberInputStepper>
           </NumberInput>
           <Button
             variant="solid"
             colorScheme="red"
-            onClick={() => dispatch(removeCartItem(cartItem))}
+            onClick={() => {
+              dispatch(removeCartItem(cartItem));
+            }}
           >
             삭제
           </Button>
