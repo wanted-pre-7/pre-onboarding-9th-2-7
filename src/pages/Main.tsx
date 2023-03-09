@@ -8,7 +8,11 @@ import Filter from "../components/main/Filter";
 import type { IProduct } from "../type/product";
 
 const Main = () => {
-  const { data: productsData, isLoading } = useQuery(["product"], getProducts);
+  const { data: productsData, isLoading } = useQuery({
+    queryKey: ["product"],
+    queryFn: getProducts,
+    suspense: true,
+  });
   const [[minPrice, maxPrice], setPrice] = useState<number[]>([0, 30000]);
   const [space, setSpace] = useState<string[]>([
     "서울",
