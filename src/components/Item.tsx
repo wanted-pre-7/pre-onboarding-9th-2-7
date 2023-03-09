@@ -16,6 +16,7 @@ import {
 import { useAppDispatch } from "../app/hook";
 import { deleteItem } from "../features/cartSlice";
 import type { IStateType } from "../features/cartSlice";
+import { useState } from "react";
 
 type PropsType = {
   product: IStateType;
@@ -26,6 +27,7 @@ const Item = ({ product }: PropsType) => {
   const handleClick = () => {
     dispatch(deleteItem(product.idx));
   };
+  const [value, setValue] = useState<number>(1);
 
   return (
     <Card
@@ -51,7 +53,7 @@ const Item = ({ product }: PropsType) => {
           </Heading>
           <Text py="2">{product?.description}</Text>
           <Text fontSize="25px" fontWeight="black" color="cyan.800">
-            {product?.price.toLocaleString("ko-kr")}원
+            {(product?.price * value).toLocaleString("ko-kr")}원
           </Text>
           <Text fontSize="12px" color="red.500">
             1인 최대 구매 수량 {product?.maximumPurchases}
@@ -59,8 +61,9 @@ const Item = ({ product }: PropsType) => {
         </CardBody>
         <CardFooter display="flex" gap="10px">
           <NumberInput
+            onChange={(valueString) => setValue(parseInt(valueString))}
             w="90px"
-            defaultValue={product?.cnt}
+            defaultValue={1}
             min={1}
             max={product?.maximumPurchases}
             focusBorderColor="gray.200"
