@@ -1,20 +1,45 @@
 import { useQuery } from "@tanstack/react-query";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, NumberInput, NumberInputField, Flex } from "@chakra-ui/react";
+import { useState } from "react";
 
 import { getProducts } from "../api/main";
 import Product from "../components/main/Product";
-import { IProduct } from "../type/product";
+import Filter from "../components/main/Filter";
+import type { IProduct } from "../type/product";
 
 const Main = () => {
   const { data: productsData, isLoading } = useQuery(["product"], getProducts);
+  const [[minPrice, maxPrice], setPrice] = useState<number[]>([0, 30000]);
+  const [space, setSpace] = useState<string[]>([
+    "서울",
+    "강원",
+    "대구",
+    "부산",
+    "제주",
+  ]);
+
+  const filteredItems = productsData?.filter((el: IProduct) => {
+    return (
+      space.includes(el.spaceCategory) &&
+      maxPrice >= el.price &&
+      minPrice <= el.price
+    );
+  });
+  console.log(filteredItems);
 
   return (
     <div>
+      <Filter
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+        setPrice={setPrice}
+        space={space}
+        setSpace={setSpace}
+      />
       <Grid templateColumns={"repeat(3, 1fr)"}>
-        {!isLoading &&
-          productsData.map((el: IProduct) => (
-            <Product key={el.idx} productData={el} />
-          ))}
+        {filteredItems?.map((el: IProduct) => (
+          <Product key={el.idx} productData={el} />
+        ))}
       </Grid>
     </div>
   );
