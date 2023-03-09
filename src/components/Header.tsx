@@ -1,37 +1,59 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Badge, Box, Center, Flex, Image } from "@chakra-ui/react";
+import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../app/hook";
 import cart from "../assets/cart.svg";
+import theme from "../utils/theme";
 
 const Header = () => {
   const navigate = useNavigate();
-
   const handleNav = (link: string) => navigate(link);
 
+  const cartItems = useAppSelector((state) => state.cartSlice);
+
   return (
-    <Flex
-      as="nav"
-      align="center"
-      justify="space-between"
-      wrap="wrap"
-      w="100%"
-      mb={8}
-      p={8}
-      bg="gray.100"
-      color="gray.800"
-      position="sticky"
-      top="0"
-      zIndex="100"
-    >
-      <Box cursor="pointer" onClick={() => handleNav("/main")}>
-        like a local
-      </Box>
-      <Image
-        src={cart}
-        cursor="pointer"
-        onClick={() => handleNav("/reservations")}
-      />
-    </Flex>
+    <Container>
+      <Wrapper>
+        <Box as="b" cursor="pointer" onClick={() => handleNav("/main")}>
+          라이크어로컬
+        </Box>
+        <CartWrapper>
+          <Image
+            src={cart}
+            cursor="pointer"
+            onClick={() => handleNav("/reservations")}
+          />
+          <Badge borderRadius="full" px="8px" colorScheme="cyan">
+            {cartItems.length}
+          </Badge>
+        </CartWrapper>
+      </Wrapper>
+    </Container>
   );
 };
 
 export default Header;
+
+const Container = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 888;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 80px;
+  padding: 30px;
+  background: ${theme.colors.main100};
+  border: 1px solid ${theme.colors.main200};
+`;
+
+const Wrapper = styled.div`
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CartWrapper = styled.div`
+  display: flex;
+  gap: 3px;
+`;
