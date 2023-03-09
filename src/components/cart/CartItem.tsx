@@ -60,7 +60,7 @@ const CartItem = ({ cartItem }: { cartItem: IcartItem }) => {
               />
               <NumberDecrementStepper
                 onClick={() => {
-                  cartItem.quantity > 0
+                  cartItem.quantity > 1
                     ? dispatch(decreaseQuantity(cartItem))
                     : null;
                 }}

@@ -45,6 +45,7 @@ const cartSlice = createSlice({
       const item = state.items.find((el) => action.payload.idx === el.idx);
       item!.quantity--;
       item!.priceSum -= item!.price;
+      state.totalPrice -= item!.price;
     },
   },
 });

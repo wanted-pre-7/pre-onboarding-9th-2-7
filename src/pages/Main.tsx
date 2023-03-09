@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Grid, GridItem } from "@chakra-ui/react";
 
 import { getProducts } from "../api/main";
 import Product from "../components/main/Product";
@@ -9,10 +10,12 @@ const Main = () => {
 
   return (
     <div>
-      {!isLoading &&
-        productsData.map((el: IProduct) => (
-          <Product key={el.idx} productData={el} />
-        ))}
+      <Grid templateColumns={"repeat(3, 1fr)"}>
+        {!isLoading &&
+          productsData.map((el: IProduct) => (
+            <Product key={el.idx} productData={el} />
+          ))}
+      </Grid>
     </div>
   );
 };

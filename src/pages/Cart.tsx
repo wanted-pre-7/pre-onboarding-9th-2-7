@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../app/hook";
+import { Box, Grid } from "@chakra-ui/react";
 
 import CartItem from "../components/cart/CartItem";
 
@@ -7,9 +8,16 @@ const Cart = () => {
   console.log(cart);
   return (
     <div>
-      {cart.items.map((el) => (
-        <CartItem key={el.idx} cartItem={el} />
-      ))}
+      <Grid templateColumns={"repeat(3, 1fr)"}>
+        {cart.items.map((el) => (
+          <CartItem key={el.idx} cartItem={el} />
+        ))}
+      </Grid>
+      <Box
+        p={5}
+        fontSize="30"
+        fontWeight="bold"
+      >{`총 결제액: ${cart.totalPrice.toLocaleString("ko-kr")}원`}</Box>
     </div>
   );
 };
