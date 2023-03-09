@@ -6,15 +6,31 @@ import {
   Image,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { addItem } from "../../app/cartSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
 import type { IProducts } from "../../pages/Main";
 import ProductModal from "./ProductModal";
-import QuantityModal from "./QuantityModal";
 
 const ProductCard = (product: IProducts) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [quantitySelect, setQuantitySelect] = useState(false);
+  const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state) => state.cart);
+  const toast = useToast();
+  const isExistItem = cartItems.find((item) => item.idx === product.idx);
+
+  const handleReservation = () => {
+    if (!isExistItem) {
+      toast({
+        title: `${product.name}을 장바구니에 담았습니다.`,
+        status: "success",
+        position: "top",
+      });
+      dispatch(addItem({ ...product }));
+    }
+  };
 
   return (
     <>
@@ -23,14 +39,6 @@ const ProductCard = (product: IProducts) => {
           product={product}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
-        />
-      )}
-
-      {quantitySelect && (
-        <QuantityModal
-          product={product}
-          isModalOpen={quantitySelect}
-          setIsModalOpen={setQuantitySelect}
         />
       )}
 
@@ -46,11 +54,11 @@ const ProductCard = (product: IProducts) => {
           <Image
             src={product.mainImage}
             alt="Product image"
-            borderRadius="lg"
+            borderRadius="md"
           />
           <Stack mt="2" padding="1">
             <Flex flexDirection="column">
-              <Text>
+              <Text fontSize="md" fontWeight="500">
                 [{product.idx}] {product.name}
               </Text>
               <Text fontSize="sm" color="grey">
@@ -64,12 +72,13 @@ const ProductCard = (product: IProducts) => {
               </Text>
               <Button
                 fontWeight="500"
+                isDisabled={!!isExistItem}
                 onClick={(event) => {
-                  setQuantitySelect(true);
+                  handleReservation();
                   event.stopPropagation();
                 }}
               >
-                예약하기
+                {isExistItem ? "예약완료" : "예약하기"}
               </Button>
             </Flex>
           </Stack>

@@ -41,11 +41,11 @@ const ProductModal = ({
               <Image
                 src={product.mainImage}
                 alt="Product image"
-                borderRadius="lg"
+                borderRadius="md"
                 mt="10"
               />
 
-              <Stack mt="2" padding="2" maxW="300px">
+              <Stack mt="2" padding="1" maxW="300px">
                 <Text fontSize="lg" fontWeight="500">
                   [{product.idx}] {product.name}
                 </Text>
