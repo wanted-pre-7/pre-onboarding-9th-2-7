@@ -10,11 +10,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useAppDispatch } from "../../app/hook";
-import {
-  addSaveCartData,
-  removeItemSaveCartData,
-  removeSaveCartData,
-} from "../../features/cartActions";
+import { cartActions } from "../../features/cartSlice";
 import type { ICartItem } from "../../features/cartSlice";
 
 const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
@@ -22,10 +18,10 @@ const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
   const dispatch = useAppDispatch();
 
   const removeItemHandler = () => {
-    dispatch(removeItemSaveCartData(cartItem.idx));
+    dispatch(cartActions.removeItemFromCart(cartItem.idx));
   };
   const removeHandler = () => {
-    dispatch(removeSaveCartData(cartItem.idx));
+    dispatch(cartActions.removeFromCart(cartItem.idx));
   };
 
   const addItemHandler = () => {
@@ -38,7 +34,7 @@ const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
       });
     } else {
       dispatch(
-        addSaveCartData({
+        cartActions.addItemToCart({
           idx: cartItem.idx,
           price: cartItem.price,
           name: cartItem.name,

@@ -10,7 +10,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { addSaveCartData } from "../../features/cartActions";
+import { cartActions } from "../../features/cartSlice";
 import type { IProduct } from "../../types";
 import ProductDetailModal from "./ProductDetailModal";
 
@@ -35,7 +35,7 @@ const Product = ({ product }: { product: IProduct }) => {
       });
     } else {
       dispatch(
-        addSaveCartData({
+        cartActions.addItemToCart({
           idx: product.idx,
           price: product.price,
           name: product.name,
