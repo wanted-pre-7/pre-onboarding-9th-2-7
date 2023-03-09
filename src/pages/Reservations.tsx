@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import React, { useMemo } from "react";
 import productApis from "../apis/product";
 import Layout from "../components/layout/Layout";
-import MainHeader from "../components/main/MainHeader";
+import MainHeader from "../components/layout/MainHeader";
 import ReservationItem from "../components/reservations/ReservationItem";
 
 const Reservations = () => {

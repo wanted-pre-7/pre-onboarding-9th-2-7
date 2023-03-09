@@ -1,20 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-
-export interface IProduct {
-  idx: number;
-  name: string;
-  mainImage: string;
-  description: string;
-  spaceCategory: string;
-  price: number;
-  maximumPurchases: number;
-  registrationDate: string;
-}
-export interface IReservationProduct extends IProduct {
-  id: number;
-  cnt: number;
-}
+import type { IProduct, IReservationProduct } from "../types/product";
 
 const SERVER_URL = "http://localhost:3000";
 
@@ -30,6 +16,7 @@ const ReadProducts = () => {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       staleTime: Infinity,
+      suspense: true,
     },
   );
 };

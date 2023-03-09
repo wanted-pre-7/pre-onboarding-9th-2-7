@@ -2,13 +2,13 @@ import { Center } from "@chakra-ui/react";
 import React, { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import productApis from "../apis/product";
-import type { IProduct } from "../apis/product";
 import { addProduct } from "../components/features/productSlice";
 import Layout from "../components/layout/Layout";
-import MainHeader from "../components/main/MainHeader";
+import MainHeader from "../components/layout/MainHeader";
 import ProductItem from "../components/main/ProductItem";
 import ProductModal from "../components/main/ProductModal";
 import useInput from "../hooks/useInput";
+import type { IProduct } from "../types/product";
 import filterRange from "../utils/filterRange";
 
 const initialValue = {
@@ -20,6 +20,7 @@ const initialValue = {
 const Main = () => {
   const { data: productList } = productApis.ReadProducts();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const {
     value: filter,
     onChange: handleChangeFilter,

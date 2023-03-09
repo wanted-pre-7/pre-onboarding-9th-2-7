@@ -12,8 +12,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useCallback } from "react";
-import type { IReservationProduct } from "../../apis/product";
 import productApis from "../../apis/product";
+import type { IReservationProduct } from "../../types/product";
 import NumberInput from "./NumberInput";
 
 interface IReservation {

@@ -4,20 +4,21 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Image as ChakraImage,
   Divider,
   Heading,
-  Image,
   Stack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import type { IProduct } from "../../apis/product";
 import productApis from "../../apis/product";
+import type { IProduct } from "../../types/product";
 
 interface IProps {
   product: IProduct;
   handleOpenModal: (product: IProduct) => void;
 }
+
 const ProductItem = ({ product, handleOpenModal }: IProps) => {
   const { mutate: addReservation } = productApis.AddReservation();
 
@@ -49,7 +50,7 @@ const ProductItem = ({ product, handleOpenModal }: IProps) => {
           {product.idx}. {product.name}
         </Heading>
 
-        <Image
+        <ChakraImage
           rounded={"lg"}
           objectFit={"cover"}
           src={product.mainImage}
