@@ -4,18 +4,30 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
 import SkeletonUi from "./components/SkeletonUi";
 import Main from "./pages/Main";
+import Reservations from "./pages/Reservations";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Navigate to="/main" /> },
   {
-    path: "/main",
-    element: (
-      <Suspense fallback={<SkeletonUi />}>
-        <Main />
-      </Suspense>
-    ),
+    path: "/",
+    element: <Navbar />,
+    children: [
+      { path: "/", element: <Navigate to="/main" /> },
+      {
+        path: "main",
+        element: (
+          <Suspense fallback={<SkeletonUi />}>
+            <Main />
+          </Suspense>
+        ),
+      },
+      {
+        path: "reservations",
+        element: <Reservations />,
+      },
+    ],
   },
 ]);
 
