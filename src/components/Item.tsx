@@ -14,7 +14,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useAppDispatch } from "../app/hook";
-import { deleteItem } from "../features/cartSlice";
+import { deleteItem, updateItem } from "../features/cartSlice";
 import type { IStateType } from "../features/cartSlice";
 import { useState } from "react";
 
@@ -28,6 +28,11 @@ const Item = ({ product }: PropsType) => {
     dispatch(deleteItem(product.idx));
   };
   const [value, setValue] = useState<number>(1);
+
+  const handleChange = (val: number) => {
+    setValue(val);
+    dispatch(updateItem({ ...product, cnt: val }));
+  };
 
   return (
     <Card
@@ -61,7 +66,7 @@ const Item = ({ product }: PropsType) => {
         </CardBody>
         <CardFooter display="flex" gap="10px">
           <NumberInput
-            onChange={(valueString) => setValue(parseInt(valueString))}
+            onChange={(valueString) => handleChange(parseInt(valueString))}
             w="90px"
             defaultValue={1}
             min={1}

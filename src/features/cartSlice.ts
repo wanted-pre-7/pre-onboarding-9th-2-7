@@ -18,8 +18,15 @@ const cartSlice = createSlice({
     deleteItem: (state: IStateType[], action: PayloadAction<number>) => {
       return [...state].filter((el) => el.idx !== action.payload);
     },
+    updateItem: (state, action) => {
+      return [...state].map((el) =>
+        el.idx === action.payload.idx
+          ? { ...el, cnt: action.payload.cnt }
+          : { ...el },
+      );
+    },
   },
 });
 
-export const { addItem, deleteItem } = cartSlice.actions;
+export const { addItem, deleteItem, updateItem } = cartSlice.actions;
 export default cartSlice.reducer;

@@ -35,7 +35,7 @@ const Product = ({ info }: PropsType) => {
         position: "top",
       });
     else {
-      dispatch(addItem({ ...info, totalPrice: info?.price }));
+      dispatch(addItem({ ...info, cnt: 1 }));
       toast({
         title: "상품이 장바구니에 담겼습니다.",
         status: "success",
