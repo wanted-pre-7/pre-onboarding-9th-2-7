@@ -1,6 +1,11 @@
-import { Box, Heading, HStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
+import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import HeaderCartButton from "./HeaderCartButton";
+
+const Logo = styled.img`
+  width: 150px;
+`;
 
 const Header = () => {
   return (
@@ -12,7 +17,7 @@ const Header = () => {
     >
       <Box>
         <Link to={"/main"}>
-          <Heading color={"blue"}>Like a local</Heading>
+          <Logo src="src/assets/logo.png" alt="logo" />
         </Link>
       </Box>
       <HStack spacing={2}>
