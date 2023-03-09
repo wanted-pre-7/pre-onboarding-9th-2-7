@@ -97,8 +97,13 @@ const ProductCard = ({ product, handleClickModal }: Props) => {
           >
             더보기
           </Button>
-          <Button variant="ghost" colorScheme="blue" onClick={handleClickCart}>
-            예약하기
+          <Button
+            variant="ghost"
+            colorScheme="blue"
+            isDisabled={!!matchedCart}
+            onClick={handleClickCart}
+          >
+            {matchedCart ? "예약완료" : "예약하기"}
           </Button>
         </ButtonGroup>
       </CardFooter>
