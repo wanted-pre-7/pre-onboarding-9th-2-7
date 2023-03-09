@@ -14,6 +14,7 @@ import type { IProductType } from "../types/product";
 import DetailModal from "./DetailModal";
 import styled from "@emotion/styled";
 import theme from "../utils/theme";
+import { useEffect, useState } from "react";
 
 type PropsType = {
   product: IProductType;
@@ -24,22 +25,19 @@ const Card = ({ product }: PropsType) => {
   const cartItems = useAppSelector((state) => state.cartSlice);
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isCart, setIsCart] = useState<boolean>(false);
+
+  useEffect(() => {
+    cartItems.find((item: ICartStateType) => item.idx === product.idx)
+      ? setIsCart(true)
+      : setIsCart(false);
+  }, [cartItems]);
 
   const handleCartClick = () => {
-    const isIdx = cartItems.find(
-      (item: ICartStateType) => item.idx === product.idx,
-    );
-    if (!!isIdx)
-      toast({
-        title: "이미 장바구니에 추가한 상품입니다.",
-        status: "error",
-        duration: 3000,
-        position: "top",
-      });
-    else {
+    if (!isCart) {
       dispatch(addItem(product));
       toast({
-        title: "상품이 장바구니에 담겼습니다.",
+        title: "상품을 장바구니에 추가하였습니다.",
         status: "success",
         duration: 3000,
         position: "top",
@@ -73,8 +71,12 @@ const Card = ({ product }: PropsType) => {
             <Button variant="outline" colorScheme="gray" onClick={onOpen}>
               알아보기
             </Button>
-            <Button colorScheme="cyan" onClick={handleCartClick}>
-              예약하기
+            <Button
+              colorScheme="cyan"
+              onClick={handleCartClick}
+              isDisabled={isCart}
+            >
+              {isCart ? "예약완료" : "예약하기"}
             </Button>
           </ButtonGroup>
         </Wrapper>
