@@ -5,7 +5,7 @@ import SolProduct from '../components/SolProduct';
 import useProductsQuery from '../query/useProductsQuery';
 
 const MainPage = () => {
-  const { data, isLoading, isError, error, isSuccess } = useProductsQuery();
+  const { data, isError, error, isSuccess } = useProductsQuery();
   const [spaceList, setSpaceList] = useState<string[]>([]);
   const [spaces, setSpaces] = useState<string[]>([]);
   const [[minPrice, maxPrice], setPrice] = useState<number[]>([0, 30000]);
@@ -17,14 +17,11 @@ const MainPage = () => {
     setSpaceList(setSpace ?? []);
   }, [isSuccess]);
 
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
   if (isError) {
     return <h2>{Object(error).message}</h2>;
   }
 
-  const products = data.data.filter(
+  const products = data?.data.filter(
     (item) =>
       spaces.includes(item.spaceCategory) &&
       item.price >= minPrice &&
@@ -43,9 +40,9 @@ const MainPage = () => {
       />
       <Box mt="20px">
         <Text fontSize="20px" as="b">
-          상품 ({products.length})
+          상품 ({products?.length})
         </Text>
-        {products.length ? (
+        {products?.length ? (
           <SimpleGrid w="100%" minChildWidth="200px" spacing="20px" mt="10px">
             {products.map((item) => (
               <SolProduct key={item.idx} info={item} />

@@ -48,6 +48,7 @@ const SolProduct = ({ info }: PropsType) => {
   return (
     <Box
       minW="200px"
+      maxW="200px"
       border="1px"
       borderRadius="4px"
       borderColor="gray.100"

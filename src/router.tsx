@@ -6,17 +6,18 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
+import Header from './components/Header';
 import SkeletonUi from './components/SkeletonUi';
+import CartPage from './pages/CartPage';
 import MainPage from './pages/MainPage';
-import ReservationPage from './pages/ReservationPage';
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <NavList />
+      <Header />
       <Routes>
         <Route path="/" element={<Navigate to="/main" replace />} />
-        <Route path="/reservations" element={<ReservationPage />} />
+        <Route path="/reservations" element={<CartPage />} />
         <Route path="*" element={<Navigate to="/main" replace />} />
         <Route
           path="/main"
