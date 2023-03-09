@@ -9,6 +9,7 @@ const theme = extendTheme({
     main300: "#4A5568",
     main400: "#1A202C",
     white: "#FFFFFF",
+    warn: "#E53E3E",
   },
   sizes: {
     xs: "12px",

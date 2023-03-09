@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useAppDispatch, useAppSelector } from "../app/hook";
 import { addItem } from "../features/cartSlice";
-import type { IStateType } from "../features/cartSlice";
+import type { ICartStateType } from "../features/cartSlice";
 import type { IProductType } from "../types/product";
 import DetailModal from "./DetailModal";
 import styled from "@emotion/styled";
@@ -27,7 +27,7 @@ const Card = ({ product }: PropsType) => {
 
   const handleCartClick = () => {
     const isIdx = cartItems.find(
-      (item: IStateType) => item.idx === product.idx,
+      (item: ICartStateType) => item.idx === product.idx,
     );
     if (!!isIdx)
       toast({

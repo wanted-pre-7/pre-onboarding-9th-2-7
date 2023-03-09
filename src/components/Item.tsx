@@ -15,23 +15,25 @@ import {
 } from "@chakra-ui/react";
 import { useAppDispatch } from "../app/hook";
 import { deleteItem, updateItem } from "../features/cartSlice";
-import type { IStateType } from "../features/cartSlice";
+import type { ICartStateType } from "../features/cartSlice";
 import { useState } from "react";
+import theme from "../utils/theme";
 
 type PropsType = {
-  product: IStateType;
+  product: ICartStateType;
 };
 
 const Item = ({ product }: PropsType) => {
   const dispatch = useAppDispatch();
+  const [value, setValue] = useState<number>(1);
+
   const handleClick = () => {
     dispatch(deleteItem(product.idx));
   };
-  const [value, setValue] = useState<number>(1);
 
   const handleChange = (val: number) => {
     setValue(val);
-    dispatch(updateItem({ ...product, cnt: val }));
+    dispatch(updateItem({ ...product, qty: val }));
   };
 
   return (
@@ -50,17 +52,27 @@ const Item = ({ product }: PropsType) => {
       />
       <Stack>
         <CardBody>
-          <Text py="2" fontSize="12px" color="gray.600">
+          <Text py="2" color={theme.colors.main300} fontSize={theme.sizes.xs}>
             상품 번호 {product?.idx}
           </Text>
-          <Heading fontSize="25px" fontWeight="black">
+          <Heading
+            color={theme.colors.main400}
+            fontSize={theme.sizes.xl}
+            fontWeight="black"
+          >
             {product?.name}
           </Heading>
-          <Text py="2">{product?.description}</Text>
-          <Text fontSize="25px" fontWeight="black" color="cyan.800">
+          <Text py="2" color={theme.colors.main400}>
+            {product?.description}
+          </Text>
+          <Text
+            color={theme.colors.point200}
+            fontWeight="black"
+            fontSize={theme.sizes.xl}
+          >
             {(product?.price * value).toLocaleString("ko-kr")}원
           </Text>
-          <Text fontSize="12px" color="red.500">
+          <Text color={theme.colors.warn} fontSize={theme.sizes.xs}>
             1인 최대 구매 수량 {product?.maximumPurchases}
           </Text>
         </CardBody>
