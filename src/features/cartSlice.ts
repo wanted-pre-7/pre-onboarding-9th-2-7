@@ -12,6 +12,10 @@ const cartSlice = createSlice({
   name: "cartSlice",
   initialState,
   reducers: {
+    addItems: (state, action: PayloadAction<ICartStateType[]>) => {
+      state = [...action.payload];
+      return state;
+    },
     addItem: (state, action: PayloadAction<IProductType>) => {
       state.push({ ...action.payload, qty: 1 });
       sessionStorage.setItem("cart", JSON.stringify(state));
@@ -21,7 +25,7 @@ const cartSlice = createSlice({
       sessionStorage.setItem("cart", JSON.stringify(newState));
       return newState;
     },
-    updateItem: (state, action) => {
+    updateItem: (state, action: PayloadAction<ICartStateType>) => {
       const newState = state.map((el) =>
         el.idx === action.payload.idx
           ? { ...el, qty: action.payload.qty }
@@ -33,5 +37,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addItem, deleteItem, updateItem } = cartSlice.actions;
+export const { addItems, addItem, deleteItem, updateItem } = cartSlice.actions;
 export default cartSlice.reducer;

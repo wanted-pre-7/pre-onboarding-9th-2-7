@@ -65,7 +65,7 @@ const Filter = ({
     >
       <Container>
         <Text as="b" fontSize={theme.sizes.s}>
-          가격 <br />
+          가격 선택 <br />
           <Box as="span" fontSize={theme.sizes.xs} fontWeight="normal">
             ({minPrice.toLocaleString("ko-kr")}원 ~{" "}
             {maxPrice.toLocaleString("ko-kr")}원)
@@ -91,7 +91,7 @@ const Filter = ({
       </Container>
       <Container mt="10px">
         <Text as="b" fontSize={theme.sizes.s}>
-          지역
+          지역 선택
         </Text>
         <Box mt="10px" display="flex" justifyContent="space-around">
           <Checkbox

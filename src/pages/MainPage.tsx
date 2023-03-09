@@ -1,4 +1,4 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useMemo, useState } from "react";
 import Card from "../components/Card";
@@ -28,6 +28,14 @@ const MainPage = () => {
   if (isLoading || isFetching) return <Loader />;
   return (
     <Container>
+      <Text
+        fontSize={theme.sizes.xl}
+        fontWeight="black"
+        textAlign="center"
+        p="50px"
+      >
+        지금 바로 로컬 여행을 떠나보세요!
+      </Text>
       <Filter
         minPrice={minPrice}
         maxPrice={maxPrice}
