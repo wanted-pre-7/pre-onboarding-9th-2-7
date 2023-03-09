@@ -15,6 +15,7 @@ import {
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import type { IReservationProduct } from "../../types/product";
+import calculatePrice from "../../utils/calcutePrice";
 import {
   editReservation,
   removeReservation,
@@ -86,7 +87,7 @@ const ReservationItem = ({ reservation }: IReservationItem) => {
         <Stack>
           <Text fontSize="sm">{reservation.spaceCategory}</Text>
           <Text fontSize="lg" fontWeight="semibold">
-            {reservation.price}원
+            {calculatePrice(reservation.price, reservation.cnt)}원
           </Text>
         </Stack>
       </CardBody>
