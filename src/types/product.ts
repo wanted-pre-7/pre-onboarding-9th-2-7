@@ -7,4 +7,5 @@ export interface IProduct {
   price: number;
   maximumPurchases: number;
   registrationDate: string;
+  quantity?: number;
 }

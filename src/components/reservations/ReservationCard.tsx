@@ -1,10 +1,12 @@
 import {
   Badge,
+  Box,
   Button,
   ButtonGroup,
   Card,
   CardBody,
   CardFooter,
+  CloseButton,
   Divider,
   Heading,
   Image,
@@ -13,15 +15,18 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
-import { addCart } from "../../features/cartSlice";
+import {
+  decrementQuantity,
+  incrementQuantity,
+  removeItem,
+} from "../../features/cartSlice";
 import type { IProduct } from "../../types/product";
 
 interface Props {
   product: IProduct;
-  handleClickModal?: (idx: number) => void;
 }
 
-const ProductCard = ({ product, handleClickModal }: Props) => {
+const ReservationCard = ({ product }: Props) => {
   const { cart } = useAppSelector((state) => state);
   const toast = useToast();
 
@@ -29,7 +34,7 @@ const ProductCard = ({ product, handleClickModal }: Props) => {
 
   const matchedCart = cart.find((item) => item.idx === product.idx);
 
-  const handleClickCart = () => {
+  const handleClickIncrement = () => {
     if (product.maximumPurchases === matchedCart?.quantity) {
       toast({
         title: `${product.name} 최대 구매 개수 초과`,
@@ -40,10 +45,10 @@ const ProductCard = ({ product, handleClickModal }: Props) => {
         position: "bottom-right",
       });
     } else {
-      dispatch(addCart({ ...product, quantity: 1 }));
+      dispatch(incrementQuantity({ ...product, quantity: 1 }));
 
       toast({
-        title: "성공적으로 장바구니에 담겼습니다.",
+        title: `장바구니에 추가되었습니다.`,
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -51,10 +56,34 @@ const ProductCard = ({ product, handleClickModal }: Props) => {
       });
     }
   };
+  const handleClickDecrement = () => {
+    if ((matchedCart?.quantity as number) > 1) {
+      dispatch(decrementQuantity({ ...product, quantity: 1 }));
+
+      toast({
+        title: "성공적으로 삭제되었습니다.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+    }
+  };
+  const handleClickRemove = () => {
+    dispatch(removeItem(product));
+
+    toast({
+      title: "성공적으로 삭제되었습니다.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "bottom-right",
+    });
+  };
 
   return (
     <Card
-      maxW="sm"
+      maxW="md"
       key={product.idx}
       _hover={{
         shadow: "md",
@@ -63,12 +92,7 @@ const ProductCard = ({ product, handleClickModal }: Props) => {
       }}
     >
       <CardBody>
-        <Image
-          src={product.mainImage}
-          alt={product.name}
-          borderRadius="lg"
-          fallbackSrc="https://media.istockphoto.com/id/1147544807/ko/%EB%B2%A1%ED%84%B0/%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4-%EC%8D%B8%EB%84%A4%EC%9D%BC-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%B2%A1%ED%84%B0-%EA%B7%B8%EB%9E%98%ED%94%BD.jpg?s=612x612&w=0&k=20&c=d0Ddt3qdtkhxPvpInjBRzLWFjODlfSh3IkKAB6YZwC8="
-        />
+        <Image src={product.mainImage} alt={product.name} borderRadius="lg" />
         <Stack mt="6" spacing="3">
           <Heading size="md" wordBreak="keep-all">
             <Text display="inline-block">{product.idx}</Text>. {product.name}
@@ -88,21 +112,31 @@ const ProductCard = ({ product, handleClickModal }: Props) => {
         </Stack>
       </CardBody>
       <Divider />
-      <CardFooter>
-        <ButtonGroup spacing="2">
+      <CardFooter justifyContent="center">
+        <ButtonGroup spacing="2" display="flex" alignItems="center" gap="1">
           <Button
-            variant="solid"
+            variant="outline"
             colorScheme="blue"
-            onClick={() => handleClickModal?.(product.idx)}
+            onClick={handleClickIncrement}
           >
-            더보기
+            +
           </Button>
-          <Button variant="ghost" colorScheme="blue" onClick={handleClickCart}>
-            예약하기
+
+          <Box>{product.quantity}</Box>
+
+          <Button
+            variant="outline"
+            colorScheme="blue"
+            onClick={handleClickDecrement}
+          >
+            -
+          </Button>
+          <Button colorScheme="red" onClick={handleClickRemove}>
+            삭제
           </Button>
         </ButtonGroup>
       </CardFooter>
     </Card>
   );
 };
-export default ProductCard;
+export default ReservationCard;
