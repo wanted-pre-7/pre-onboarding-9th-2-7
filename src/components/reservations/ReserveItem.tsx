@@ -11,9 +11,9 @@ import {
 import styled from "@emotion/styled";
 import { useAppDispatch } from "../../hook";
 import { reserveActions } from "../../slice/reserveList";
-import type { IProduct } from "../../types";
+import type { IReserveProduct } from "../../types";
 
-const ReserveItem = (item: IProduct) => {
+const ReserveItem = (item: IReserveProduct) => {
   const {
     idx,
     name,
@@ -30,6 +30,14 @@ const ReserveItem = (item: IProduct) => {
 
   const onRemoveProduct = () => {
     dispatch(reserveActions.delete(idx));
+  };
+
+  const onAddQuantity = () => {
+    dispatch(reserveActions.addCount(idx));
+  };
+
+  const onSubtractQuantity = () => {
+    dispatch(reserveActions.subtractCount(idx));
   };
 
   return (
@@ -55,9 +63,11 @@ const ReserveItem = (item: IProduct) => {
         </CardBody>
 
         <FooterWrap>
-          <Button variant="solid" colorScheme="blue">
-            Buy Latte
-          </Button>
+          <div>
+            <QuantityWrap onClick={onAddQuantity}>+</QuantityWrap>
+            <span>{count}</span>
+            <QuantityWrap onClick={onSubtractQuantity}>-</QuantityWrap>
+          </div>
           <Button onClick={onRemoveProduct}>삭제</Button>
         </FooterWrap>
       </Stack>
@@ -74,6 +84,14 @@ const ReserveItemWrap = styled(Card)`
 const FooterWrap = styled(CardFooter)`
   display: flex;
   justify-content: space-between;
+`;
+
+const QuantityWrap = styled.div`
+  display: inline-block;
+  margin: 0 20px;
+  padding: 0 5px;
+  border: 1px solid #767676;
+  cursor: pointer;
 `;
 
 export default ReserveItem;

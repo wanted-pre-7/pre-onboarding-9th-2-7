@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { IProduct } from "../types";
+import type { IReserveProduct } from "../types";
 
-const initialReserveList: IProduct[] = [];
+const initialReserveList: IReserveProduct[] = [];
 
 const reserveList = createSlice({
   name: "reserveList",
@@ -12,6 +12,18 @@ const reserveList = createSlice({
     },
     delete: (state, action) => {
       return state.filter((product) => product.idx !== action.payload);
+    },
+    addCount: (state, action) => {
+      const productIndex = state.findIndex(
+        (product) => product.idx === action.payload,
+      );
+      state[productIndex].count++;
+    },
+    subtractCount: (state, action) => {
+      const productIndex = state.findIndex(
+        (product) => product.idx === action.payload,
+      );
+      state[productIndex].count--;
     },
   },
 });

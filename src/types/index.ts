@@ -7,11 +7,14 @@ export interface IProduct {
   price: number;
   maximumPurchases: number;
   registrationDate: string;
-  count?: number;
 }
 
 export interface IModalProps {
   isOpen: boolean;
   onClose: () => void;
   product: IProduct;
+}
+
+export interface IReserveProduct extends IProduct {
+  count: number;
 }
