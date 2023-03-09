@@ -37,14 +37,14 @@ const Product = ({ productData }: Props) => {
     if (!cartItem || productData?.maximumPurchases > cartItem?.quantity) {
       dispatch(addCartItem(productData));
       toast({
-        description: "장바구니에 담겼습니다.",
+        description: `${productData.name} 상품이 장바구니에 담겼습니다.`,
         status: "success",
         duration: 3000,
         isClosable: true,
       });
     } else {
       toast({
-        description: "해당 상품의 최대구매 수량을 초과했습니다.",
+        description: `${productData.name}의 최대구매 수량을 초과했습니다.`,
         status: "error",
         duration: 3000,
         isClosable: true,
