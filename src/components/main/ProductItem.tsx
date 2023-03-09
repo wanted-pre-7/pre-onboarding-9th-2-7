@@ -25,7 +25,7 @@ interface IProps {
 const ProductItem = ({ product, handleOpenModal, isReserve }: IProps) => {
   const toast = useToast();
   const dispatch = useDispatch();
-  console.log(isReserve);
+
   const handleAddReservation = () => {
     dispatch(addReservation({ ...product, cnt: 1 }));
     toast({

@@ -21,11 +21,11 @@ import {
 } from "../features/reservationSlice";
 import NumberInput from "./NumberInput";
 
-interface IReservation {
+interface IReservationItem {
   reservation: IReservationProduct;
 }
 
-const ReservationItem = ({ reservation }: IReservation) => {
+const ReservationItem = ({ reservation }: IReservationItem) => {
   const dispatch = useDispatch();
   const toast = useToast();
 
@@ -42,6 +42,15 @@ const ReservationItem = ({ reservation }: IReservation) => {
 
   const handleEditReservation = useCallback((_: string, num: number) => {
     dispatch(editReservation({ idx: reservation.idx, cnt: num }));
+    if (reservation.maximumPurchases === num) {
+      toast({
+        title: `해당 상품의 최대 수량은 ${reservation.maximumPurchases}개 입니다.`,
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+    }
   }, []);
 
   return (
