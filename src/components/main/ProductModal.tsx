@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
-import type { IProduct } from "../../apis/product";
 import type { RootState } from "../../app/store";
+import type { IProduct } from "../../types/product";
 
 interface IProps {
   handleCloseModal: () => void;

@@ -10,10 +10,15 @@ import {
   Stack,
   Text,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import { useCallback } from "react";
-import productApis from "../../apis/product";
+import { useDispatch } from "react-redux";
 import type { IReservationProduct } from "../../types/product";
+import {
+  editReservation,
+  removeReservation,
+} from "../features/reservationSlice";
 import NumberInput from "./NumberInput";
 
 interface IReservation {
@@ -21,16 +26,22 @@ interface IReservation {
 }
 
 const ReservationItem = ({ reservation }: IReservation) => {
-  const { mutate: removeReservation } = productApis.RemoveReservation();
-  const { mutate: editReservation } = productApis.EditReservation(
-    reservation.id,
-  );
+  const dispatch = useDispatch();
+  const toast = useToast();
+
   const handleRemoveReservation = () => {
-    removeReservation(reservation.id);
+    dispatch(removeReservation({ idx: reservation.idx }));
+    toast({
+      title: "상품 예약이 삭제되었습니다.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "bottom-right",
+    });
   };
 
   const handleEditReservation = useCallback((_: string, num: number) => {
-    editReservation(num);
+    dispatch(editReservation({ idx: reservation.idx, cnt: num }));
   }, []);
 
   return (

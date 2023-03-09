@@ -1,13 +1,19 @@
 import { Center } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import React, { useMemo } from "react";
-import productApis from "../apis/product";
+import { useSelector } from "react-redux";
+import type { RootState } from "../app/store";
 import Layout from "../components/layout/Layout";
 import MainHeader from "../components/layout/MainHeader";
 import ReservationItem from "../components/reservations/ReservationItem";
 
+import type { IReservationProduct } from "../types/product";
+
 const Reservations = () => {
-  const { data: reservationList } = productApis.ReadReservations();
+  const { reservationList } = useSelector<
+    RootState,
+    { reservationList: IReservationProduct[] }
+  >((state) => state.reservation);
 
   const totalPrice = useMemo(() => {
     if (!reservationList) return 0;

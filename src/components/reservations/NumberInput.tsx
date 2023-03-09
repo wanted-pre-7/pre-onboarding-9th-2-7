@@ -1,5 +1,4 @@
 import { Button, HStack, Input, useNumberInput } from "@chakra-ui/react";
-import React from "react";
 
 interface INumberInput {
   cnt: number;

@@ -12,23 +12,29 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import productApis from "../../apis/product";
+import { useDispatch } from "react-redux";
 import type { IProduct } from "../../types/product";
+import { addReservation } from "../features/reservationSlice";
 
 interface IProps {
   product: IProduct;
   handleOpenModal: (product: IProduct) => void;
+  isReserve: boolean;
 }
 
-const ProductItem = ({ product, handleOpenModal }: IProps) => {
-  const {
-    mutate: addReservation,
-    isError,
-    isSuccess,
-  } = productApis.AddReservation();
-
+const ProductItem = ({ product, handleOpenModal, isReserve }: IProps) => {
+  const toast = useToast();
+  const dispatch = useDispatch();
+  console.log(isReserve);
   const handleAddReservation = () => {
-    addReservation({ ...product, cnt: 1, id: product.idx });
+    dispatch(addReservation({ ...product, cnt: 1 }));
+    toast({
+      title: "상품이 예약되었습니다.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "bottom-right",
+    });
   };
 
   return (
@@ -75,6 +81,7 @@ const ProductItem = ({ product, handleOpenModal }: IProps) => {
             variant="solid"
             colorScheme="blue"
             onClick={handleAddReservation}
+            isDisabled={isReserve}
           >
             예약하기
           </Button>

@@ -9,6 +9,5 @@ export interface IProduct {
   registrationDate: string;
 }
 export interface IReservationProduct extends IProduct {
-  id: number;
   cnt: number;
 }

@@ -1,14 +1,15 @@
 import { Center } from "@chakra-ui/react";
 import React, { useMemo, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import productApis from "../apis/product";
-import { addProduct } from "../components/features/productSlice";
+import type { RootState } from "../app/store";
+import { readProduct } from "../components/features/productSlice";
 import Layout from "../components/layout/Layout";
 import MainHeader from "../components/layout/MainHeader";
 import ProductItem from "../components/main/ProductItem";
 import ProductModal from "../components/main/ProductModal";
 import useInput from "../hooks/useInput";
-import type { IProduct } from "../types/product";
+import type { IProduct, IReservationProduct } from "../types/product";
 import filterRange from "../utils/filterRange";
 
 const initialValue = {
@@ -20,13 +21,16 @@ const initialValue = {
 const Main = () => {
   const { data: productList } = productApis.ReadProducts();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const { reservationList } = useSelector<
+    RootState,
+    { reservationList: IReservationProduct[] }
+  >((state) => state.reservation);
+  const dispatch = useDispatch();
   const {
     value: filter,
     onChange: handleChangeFilter,
     reset: handleReset,
   } = useInput(initialValue);
-  const dispatch = useDispatch();
 
   const filterProductList = useMemo(() => {
     if (!productList) return [];
@@ -39,7 +43,7 @@ const Main = () => {
   }, [productList, filter]);
 
   const hadleOpenModal = (product: IProduct) => {
-    dispatch(addProduct(product));
+    dispatch(readProduct(product));
     setIsModalOpen(true);
   };
 
@@ -62,7 +66,15 @@ const Main = () => {
       >
         {React.Children.toArray(
           filterProductList?.map((product) => (
-            <ProductItem product={product} handleOpenModal={hadleOpenModal} />
+            <ProductItem
+              product={product}
+              handleOpenModal={hadleOpenModal}
+              isReserve={
+                !!reservationList?.find(
+                  (reservation) => reservation.idx === product.idx,
+                )
+              }
+            />
           )),
         )}
       </Center>
