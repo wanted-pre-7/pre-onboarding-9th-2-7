@@ -7,16 +7,4 @@ const axiosConfig: AxiosRequestConfig = {
 };
 const axiosInstance = axios.create(axiosConfig);
 
-const token = localStorage.getItem("token");
-
-axiosInstance.interceptors.request.use(
-  (config) => {
-    config.headers.Authorization = `Bearer ${token}`;
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  },
-);
-
 export default axiosInstance;

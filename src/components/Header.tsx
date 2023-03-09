@@ -1,4 +1,4 @@
-import { Badge, Box, Center, Flex, Image } from "@chakra-ui/react";
+import { Badge, Box, Image } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../app/hook";
