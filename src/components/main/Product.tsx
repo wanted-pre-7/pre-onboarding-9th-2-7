@@ -29,6 +29,7 @@ const Product = ({ productData }: Props) => {
   const dispatch = useAppDispatch();
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const isReservated = cart.items.find((el) => el.idx === productData.idx);
 
   const handleClickAddCart = (productData: IProduct) => {
     const cartItem: IcartItem | undefined = cart.items.find(
@@ -80,7 +81,8 @@ const Product = ({ productData }: Props) => {
               상세정보
             </Button>
             <Button
-              variant="ghost"
+              isDisabled={!!isReservated}
+              variant="solid"
               colorScheme="blue"
               onClick={() => handleClickAddCart(productData)}
             >

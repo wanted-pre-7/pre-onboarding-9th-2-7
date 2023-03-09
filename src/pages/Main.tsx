@@ -32,7 +32,6 @@ const Main = () => {
       minPrice <= el.price
     );
   });
-  console.log(filteredItems);
 
   return (
     <div>
