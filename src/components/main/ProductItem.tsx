@@ -10,6 +10,7 @@ import {
   Stack,
   Text,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 import productApis from "../../apis/product";
 import type { IProduct } from "../../types/product";
@@ -20,7 +21,11 @@ interface IProps {
 }
 
 const ProductItem = ({ product, handleOpenModal }: IProps) => {
-  const { mutate: addReservation } = productApis.AddReservation();
+  const {
+    mutate: addReservation,
+    isError,
+    isSuccess,
+  } = productApis.AddReservation();
 
   const handleAddReservation = () => {
     addReservation({ ...product, cnt: 1, id: product.idx });
