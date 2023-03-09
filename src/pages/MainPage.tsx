@@ -1,10 +1,10 @@
-import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { SimpleGrid, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useMemo, useState } from "react";
 import Card from "../components/Card";
 import Filter from "../components/Filter";
 import Loader from "../components/Loader";
-import useProductsQuery from "../query/useProductsQuery";
+import useProductsQuery from "../utils/useProductsQuery";
 import theme from "../utils/theme";
 
 const MainPage = () => {
