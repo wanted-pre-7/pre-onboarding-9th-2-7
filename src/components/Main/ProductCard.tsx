@@ -28,7 +28,9 @@ const ProductCard = (product: IProducts) => {
         status: "success",
         position: "top",
       });
-      dispatch(addItem({ ...product }));
+
+      const add = { ...product, quantity: 1 };
+      dispatch(addItem(add));
     }
   };
 
