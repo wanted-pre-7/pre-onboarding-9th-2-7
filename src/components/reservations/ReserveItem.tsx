@@ -5,8 +5,14 @@ import {
   CardFooter,
   Heading,
   Image,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useAppDispatch } from "../../hook";
@@ -14,9 +20,18 @@ import { reserveActions } from "../../slice/reserveList";
 import type { IReserveProduct } from "../../types";
 
 const ReserveItem = (item: IReserveProduct) => {
-  const { idx, name, mainImage, description, spaceCategory, price, count } =
-    item;
+  const {
+    idx,
+    name,
+    mainImage,
+    description,
+    spaceCategory,
+    price,
+    count,
+    maximumPurchases,
+  } = item;
 
+  const toast = useToast();
   const dispatch = useAppDispatch();
 
   const onRemoveProduct = () => {
@@ -24,7 +39,19 @@ const ReserveItem = (item: IReserveProduct) => {
   };
 
   const onAddQuantity = () => {
-    dispatch(reserveActions.addCount(idx));
+    if (count < maximumPurchases) {
+      dispatch(reserveActions.addCount(idx));
+      return;
+    }
+
+    toast({
+      title: `${name} 최대 구매 개수 초과`,
+      description: `인 당 ${maximumPurchases}개만 구매할 수 있습니다.`,
+      position: "top-right",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
   };
 
   const onSubtractQuantity = () => {
@@ -55,11 +82,24 @@ const ReserveItem = (item: IReserveProduct) => {
         </CardBody>
 
         <FooterWrap>
-          <div>
-            <QuantityWrap onClick={onAddQuantity}>+</QuantityWrap>
-            <span>{count}</span>
-            <QuantityWrap onClick={onSubtractQuantity}>-</QuantityWrap>
-          </div>
+          <QuantityWrap>
+            <NumberInput
+              size="sm"
+              maxW={20}
+              defaultValue={count}
+              min={1}
+              max={maximumPurchases}
+            >
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper onClick={onAddQuantity} />
+                <NumberDecrementStepper onClick={onSubtractQuantity} />
+              </NumberInputStepper>
+            </NumberInput>
+            {count === maximumPurchases && (
+              <QuantityMessage>최대 수량이 담겨있습니다.</QuantityMessage>
+            )}
+          </QuantityWrap>
           <Button onClick={onRemoveProduct}>삭제</Button>
         </FooterWrap>
       </Stack>
@@ -76,14 +116,14 @@ const ReserveItemWrap = styled(Card)`
 const FooterWrap = styled(CardFooter)`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
-const QuantityWrap = styled.div`
-  display: inline-block;
-  margin: 0 20px;
-  padding: 0 5px;
-  border: 1px solid #767676;
-  cursor: pointer;
+const QuantityWrap = styled.div``;
+
+const QuantityMessage = styled.p`
+  margin-top: 10px;
+  color: red;
 `;
 
 export default ReserveItem;

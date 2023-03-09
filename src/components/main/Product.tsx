@@ -44,7 +44,7 @@ const Product = (product: IProduct) => {
       const reserveProduct = { ...product, count: 1 };
       dispatch(reserveActions.add(reserveProduct));
       toast({
-        description: "상품이 장바구니에 담겼습니다.",
+        description: "상품이 장바구니에 추가되었습니다.",
         position: "top-right",
         status: "success",
         duration: 3000,
@@ -64,14 +64,6 @@ const Product = (product: IProduct) => {
       });
       return;
     }
-
-    toast({
-      description: "이미 최대수량이 담겨있습니다.",
-      position: "top-right",
-      status: "error",
-      duration: 3000,
-      isClosable: true,
-    });
   };
 
   return (
