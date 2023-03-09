@@ -14,17 +14,8 @@ import { reserveActions } from "../../slice/reserveList";
 import type { IReserveProduct } from "../../types";
 
 const ReserveItem = (item: IReserveProduct) => {
-  const {
-    idx,
-    name,
-    mainImage,
-    description,
-    spaceCategory,
-    price,
-    maximumPurchases,
-    registrationDate,
-    count,
-  } = item;
+  const { idx, name, mainImage, description, spaceCategory, price, count } =
+    item;
 
   const dispatch = useAppDispatch();
 
