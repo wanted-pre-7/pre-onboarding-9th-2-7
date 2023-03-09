@@ -11,8 +11,8 @@ import {
   Badge,
   Box,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
 import type { IProductType } from "../types/product";
+import theme from "../utils/theme";
 
 type PropsType = {
   product: IProductType;
@@ -34,7 +34,8 @@ const DetailModal = ({ product, isOpen, onClose }: PropsType) => {
           <Image maxH="200px" src={product?.mainImage} alt={product?.name} />
           <ModalCloseButton color="white" />
           <ModalHeader
-            fontSize="25px"
+            color={theme.colors.main400}
+            fontSize={theme.sizes.xl}
             fontWeight="black"
             display="flex"
             flexDir="column"
@@ -46,12 +47,18 @@ const DetailModal = ({ product, isOpen, onClose }: PropsType) => {
             </Box>
             {product?.name}
             <br />
-            <Box as="span" color="cyan.800">
+            <Box
+              as="span"
+              color={theme.colors.point200}
+              fontSize={theme.sizes.xl}
+            >
               {product?.price.toLocaleString("ko-kr")}원
             </Box>
           </ModalHeader>
-          <ModalBody fontSize="20px">{product?.description}</ModalBody>
-          <ModalBody fontSize="12px" color="gray.600">
+          <ModalBody color={theme.colors.main400} fontSize={theme.sizes.m}>
+            {product?.description}
+          </ModalBody>
+          <ModalBody color={theme.colors.main300} fontSize={theme.sizes.xs}>
             * 이 상품은{" "}
             <Box as="span" fontWeight="bold">
               1인 최대 1개
@@ -62,7 +69,7 @@ const DetailModal = ({ product, isOpen, onClose }: PropsType) => {
           </ModalBody>
           <ModalBody></ModalBody>
           <ModalFooter>
-            <Button variant="ghost" onClick={onClose}>
+            <Button variant="solid" colorScheme="gray" onClick={onClose}>
               닫기
             </Button>
           </ModalFooter>

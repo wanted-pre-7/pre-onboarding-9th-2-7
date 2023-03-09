@@ -1,6 +1,6 @@
 import { SimpleGrid, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Card from "../components/Card";
 import Filter from "../components/Filter";
 import Loader from "../components/Loader";
@@ -9,12 +9,18 @@ import theme from "../utils/theme";
 
 const MainPage = () => {
   const { data, isFetching, isLoading } = useProductsQuery();
-  const [spaceList, setSpacesList] = useState<string[]>([]);
+  const [selectSpaces, setSelectSpaces] = useState<string[]>([]);
   const [[minPrice, maxPrice], setPrice] = useState<number[]>([0, 30000]);
+
+  const spaceList = useMemo(() => {
+    const spaceCategory = data?.data.map((product) => product.spaceCategory);
+    const set = new Set(spaceCategory);
+    return [...set];
+  }, [data]);
 
   const products = data?.data.filter(
     (item) =>
-      spaceList.includes(item.spaceCategory) &&
+      selectSpaces.includes(item.spaceCategory) &&
       item.price >= minPrice &&
       item.price <= maxPrice,
   );
@@ -25,9 +31,10 @@ const MainPage = () => {
       <Filter
         minPrice={minPrice}
         maxPrice={maxPrice}
+        selectSpaces={selectSpaces}
+        spaceList={spaceList}
         setPrice={setPrice}
-        spaces={spaceList}
-        setSpaces={setSpacesList}
+        setSelectSpaces={setSelectSpaces}
       />
       <Wrapper>
         <Text as="b" fontSize={theme.sizes.lg}>
