@@ -14,7 +14,7 @@ import {
 import type { Dispatch, SetStateAction } from "react";
 import type { IProducts } from "../../pages/Main";
 
-interface IModalProps {
+export interface IModalProps {
   product: IProducts;
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;

@@ -13,6 +13,7 @@ export interface IProducts {
   price: number;
   maximumPurchases: number;
   registrationDate: string;
+  quantity?: number;
 }
 
 const Main = () => {

@@ -10,9 +10,11 @@ import {
 import { useState } from "react";
 import type { IProducts } from "../../pages/Main";
 import ProductModal from "./ProductModal";
+import QuantityModal from "./QuantityModal";
 
 const ProductCard = (product: IProducts) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [quantitySelect, setQuantitySelect] = useState(false);
 
   return (
     <>
@@ -21,6 +23,14 @@ const ProductCard = (product: IProducts) => {
           product={product}
           isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
+        />
+      )}
+
+      {quantitySelect && (
+        <QuantityModal
+          product={product}
+          isModalOpen={quantitySelect}
+          setIsModalOpen={setQuantitySelect}
         />
       )}
 
@@ -54,7 +64,10 @@ const ProductCard = (product: IProducts) => {
               </Text>
               <Button
                 fontWeight="500"
-                onClick={(event) => event.stopPropagation()}
+                onClick={(event) => {
+                  setQuantitySelect(true);
+                  event.stopPropagation();
+                }}
               >
                 예약하기
               </Button>
