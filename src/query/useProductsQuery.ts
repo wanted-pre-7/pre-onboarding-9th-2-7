@@ -9,6 +9,7 @@ const useProductsQuery = () => {
     () => getProducts(),
     {
       refetchOnWindowFocus: false,
+      suspense: true,
     },
   );
 };
