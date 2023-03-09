@@ -91,8 +91,13 @@ const Product = (product: IProduct) => {
             <Text color="blue.600" fontSize="lg">
               {price.toLocaleString()}원
             </Text>
-            <Button variant="solid" colorScheme="blue" onClick={onAddProduct}>
-              예약
+            <Button
+              variant="solid"
+              colorScheme="blue"
+              onClick={onAddProduct}
+              isDisabled={!!isReserved}
+            >
+              {isReserved ? "예약완료" : "예약"}
             </Button>
           </InfoWrap>
         </ProductBody>
