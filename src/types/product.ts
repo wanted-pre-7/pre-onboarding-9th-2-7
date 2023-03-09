@@ -7,5 +7,8 @@ export interface IProduct {
   price: number;
   maximumPurchases: number;
   registrationDate: string;
-  quantity?: number;
+}
+
+export interface ICart extends IProduct {
+  quantity: number;
 }
