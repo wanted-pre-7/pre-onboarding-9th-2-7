@@ -24,13 +24,13 @@ const Main = () => {
     queryFn: getProducts,
     suspense: true,
   });
-
-  const [index, setIndex] = useState(0);
-  const [currValues, setCurrValues] = useState([1000, 30000]);
-  const [spaceCategory, setSpaceCategory] = useState("");
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const maxValue = Math.max(...PRICE_VALUE);
   const minValue = Math.min(...PRICE_VALUE);
+
+  const [index, setIndex] = useState(0);
+  const [currValues, setCurrValues] = useState([minValue, maxValue]);
+  const [spaceCategory, setSpaceCategory] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClickModal = (idx: number) => {
     setIndex(idx);
