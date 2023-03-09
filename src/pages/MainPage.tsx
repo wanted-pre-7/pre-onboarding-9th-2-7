@@ -1,23 +1,21 @@
-import { Button, useDisclosure } from '@chakra-ui/react';
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
-import { getProduct } from '../apis/main';
-import FilterModal from '../components/common/FilterModal';
-import type { IProduct } from '../components/common/Product';
-import Main from '../components/Main';
+import { Box, Container, SimpleGrid, Text } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import Filter from '../components/Filter';
+import SolProduct from '../components/SolProduct';
+import useProductsQuery from '../query/useProductsQuery';
 
 const MainPage = () => {
-  const [placeList, setPlaceList] = useState<string[]>([]);
-  const { data, isLoading, isError, error } = useQuery<IProduct[]>({
-    queryKey: ['products'],
-    queryFn: getProduct,
-    onSuccess: (res) => {
-      setProDuctData(res);
-      setPlaceList(res.map((product) => product.spaceCategory));
-    },
-  });
-  const [productData, setProDuctData] = useState(data);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data, isLoading, isError, error, isSuccess } = useProductsQuery();
+  const [spaceList, setSpaceList] = useState<string[]>([]);
+  const [spaces, setSpaces] = useState<string[]>([]);
+  const [[minPrice, maxPrice], setPrice] = useState<number[]>([0, 30000]);
+  useEffect(() => {
+    const setSpace = [
+      ...new Set(data?.data.map((product) => product.spaceCategory)),
+    ];
+    setSpaces(setSpace ?? []);
+    setSpaceList(setSpace ?? []);
+  }, [isSuccess]);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -26,19 +24,38 @@ const MainPage = () => {
     return <h2>{Object(error).message}</h2>;
   }
 
+  const products = data.data.filter(
+    (item) =>
+      spaces.includes(item.spaceCategory) &&
+      item.price >= minPrice &&
+      item.price <= maxPrice,
+  );
+
   return (
-    <>
-      <Button onClick={() => onOpen()}>필터</Button>
-      <FilterModal
-        isOpen={isOpen}
-        onClose={onClose}
-        setData={setProDuctData}
-        placeList={[...new Set(placeList)]}
+    <Box w="80%" m="auto" p="30px" color="gray.800">
+      <Filter
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+        setPrice={setPrice}
+        spaceList={spaceList}
+        spaces={spaces}
+        setSpaces={setSpaces}
       />
-      {productData?.map((product: IProduct) => (
-        <Main key={product.idx} product={product} />
-      ))}
-    </>
+      <Box mt="20px">
+        <Text fontSize="20px" as="b">
+          상품 ({products.length})
+        </Text>
+        {products.length ? (
+          <SimpleGrid w="100%" minChildWidth="200px" spacing="20px" mt="10px">
+            {products.map((item) => (
+              <SolProduct key={item.idx} info={item} />
+            ))}
+          </SimpleGrid>
+        ) : (
+          <Container centerContent>해당하는 상품이 없습니다.</Container>
+        )}
+      </Box>
+    </Box>
   );
 };
 
