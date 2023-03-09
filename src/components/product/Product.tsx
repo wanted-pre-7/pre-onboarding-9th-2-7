@@ -2,12 +2,12 @@ import {
   Badge,
   Box,
   Button,
-  HStack,
+  ButtonGroup,
+  Divider,
   Image,
   Text,
   useDisclosure,
   useToast,
-  VStack,
 } from "@chakra-ui/react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { addSaveCartData } from "../../features/cartActions";
@@ -18,6 +18,8 @@ const Product = ({ product }: { product: IProduct }) => {
   const toast = useToast();
 
   const cartItems = useAppSelector((state) => state.cart.items);
+  const isReservated = cartItems.find((list) => list.idx === product.idx);
+
   const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useAppDispatch();
 
@@ -54,40 +56,51 @@ const Product = ({ product }: { product: IProduct }) => {
   };
 
   return (
-    <>
-      <VStack alignItems={"flex-start"}>
-        <Box mb={3}>
-          <Box overflow={"hidden"} rounded="2xl">
-            <Image
-              objectFit={"cover"}
-              boxSize="400px"
-              src={product.mainImage}
-            />
-          </Box>
-          <Badge colorScheme="blue">{product.spaceCategory}</Badge>
-          <Text display={"block"} as="b" noOfLines={1} fontSize="lg">
-            [{product.idx}] {product.name}
-          </Text>
-          <Text align="right" fontSize={"xl"} color="blue.600">
-            {product.price}원
-          </Text>
-          <HStack>
-            <Button width="100%" rounded="2xl" onClick={onOpen}>
-              상품 정보
-            </Button>
-            <Button
-              onClick={addToCartHandler}
-              colorScheme="blue"
-              width="100%"
-              rounded="2xl"
-            >
-              예약
-            </Button>
-          </HStack>
-        </Box>
-      </VStack>
+    <Box
+      minW="200px"
+      border="1px"
+      borderRadius="4px"
+      borderColor="gray.100"
+      overflow="hidden"
+    >
       <ProductDetailModal isOpen={isOpen} onClose={onClose} product={product} />
-    </>
+      <Image w="100%" src={product?.mainImage} alt={product?.name} />
+      <Box p="8px" cursor="pointer">
+        <Badge borderRadius="full" px="2" colorScheme="cyan">
+          {product?.spaceCategory}
+        </Badge>
+        <Box display="flex" flexDir="column" mt="10px" minH="100px">
+          <Text color="gray.600" fontSize="12px">
+            상품 번호 {product?.idx}
+          </Text>
+          <Text color="gray.800" fontSize="18px" fontWeight="black">
+            {product?.name}
+          </Text>
+          <Text color="cyan.800" fontSize="18px" fontWeight="black">
+            {product?.price.toLocaleString("ko-kr")}원
+          </Text>
+        </Box>
+        <Divider my="15px" />
+        <ButtonGroup display="flex" justifyContent="center" spacing="2">
+          <Button variant="outline" colorScheme="cyan" onClick={onOpen}>
+            자세히
+          </Button>
+          {isReservated ? (
+            <Button variant="solid" disabled>
+              예약완료
+            </Button>
+          ) : (
+            <Button
+              variant="solid"
+              colorScheme="cyan"
+              onClick={addToCartHandler}
+            >
+              예약하기
+            </Button>
+          )}
+        </ButtonGroup>
+      </Box>
+    </Box>
   );
 };
 

@@ -1,8 +1,9 @@
+import { Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "./App";
+import SkeletonUi from "./components/product/SkeletonUi";
 import Home from "./routes/Home";
 import Reservations from "./routes/Reservations";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,7 +15,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/main",
-        element: <Home />,
+        element: (
+          <Suspense fallback={<SkeletonUi />}>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: "/reservations",

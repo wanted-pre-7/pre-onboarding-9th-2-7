@@ -4,7 +4,6 @@ const axiosConfig = {
   timeout: 3000,
   baseURL: import.meta.env.VITE_API_URL,
 };
-
 const axiosInstance = axios.create(axiosConfig);
 
 axiosInstance.interceptors.response.use(
@@ -16,6 +15,4 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-export const listProduct = () => {
-  return axiosInstance.get("/products").then(({ data }) => data);
-};
+export default axiosInstance;

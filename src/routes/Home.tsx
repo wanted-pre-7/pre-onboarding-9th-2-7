@@ -1,133 +1,103 @@
-import { SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Grid,
-  HStack,
+  Container,
   IconButton,
-  Input,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  SimpleGrid,
+  Spinner,
   Text,
-  useToast,
 } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
-import { useRef, useState } from "react";
-import { listProduct } from "../api";
+import { useEffect, useState } from "react";
+import FilterIcon from "../components/common/FilterIcon";
+import Filter from "../components/product/Filter";
 import Product from "../components/product/Product";
-import type { IProduct } from "../types";
-
-interface IFilter {
-  minPrice: unknown;
-  maxPrice: unknown;
-  space: string;
-}
+import useProductsQuery from "../query/useProductsQuery";
 
 const Home = () => {
-  const toast = useToast();
-  const [filters, setFilters] = useState<IFilter>({
-    minPrice: 0,
-    maxPrice: "",
-    space: "",
-  });
-  const { isLoading, data } = useQuery(["products", filters], listProduct, {
-    select: (data) => {
-      return data.filter((product: IProduct) => {
-        return (
-          product.spaceCategory.includes(filters.space) &&
-          product.price >= Number(filters.minPrice || 0) &&
-          (filters.maxPrice ? product.price <= Number(filters.maxPrice) : true)
-        );
-      });
-    },
-  });
+  const [placeList, setPlaceList] = useState<string[]>([]);
 
-  const minPriceRef = useRef<HTMLInputElement>(null);
-  const maxPriceRef = useRef<HTMLInputElement>(null);
-  const spaceRef = useRef<HTMLInputElement>(null);
+  const { data, isFetching, isLoading } = useProductsQuery();
+  const [spaces, setSpaces] = useState<string[]>([]);
+  const [[minPrice, maxPrice], setPrice] = useState<number[]>([0, 0]);
 
-  const onFilters = () => {
-    const minPrice = minPriceRef.current?.value;
-    const maxPrice = maxPriceRef.current?.value;
-    const space = spaceRef.current?.value || "";
-
-    if (minPrice && maxPrice && Number(minPrice) > Number(maxPrice)) {
-      toast({
-        title: "가격 범위가 잘못되었습니다.",
-        status: "error",
-        isClosable: true,
-        position: "bottom-right",
-      });
-    } else {
-      setFilters({
-        minPrice,
-        maxPrice,
-        space,
-      });
+  useEffect(() => {
+    if (data) {
+      const places = data.data.map((product) => product.spaceCategory);
+      setPlaceList(() => places);
+      setPrice(() => [
+        0,
+        Math.max(...data.data.map((product) => product.price)),
+      ]);
+      setSpaces(() => [...new Set(places)]);
     }
-  };
+  }, [data, setPlaceList, setPrice]);
 
-  return (
-    <Box>
-      <HStack mt="5">
-        <Text ml="20" as="b">
-          가격 :{" "}
-        </Text>
-        <NumberInput defaultValue={0} step={1000} min={0}>
-          <NumberInputField size={4} ref={minPriceRef} />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-        <Text ml="20" as="b">
-          ~
-        </Text>
-        <NumberInput step={1000} min={0}>
-          <NumberInputField size={4} ref={maxPriceRef} />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
+  const products = data?.data.filter(
+    (item) =>
+      [...spaces].includes(item.spaceCategory) &&
+      item.price >= minPrice &&
+      item.price <= maxPrice,
+  );
 
-        <Box>
-          <Text ml="5" as="b">
-            공간 :{" "}
-          </Text>
-          <Input htmlSize={4} width="auto" ref={spaceRef} />
-        </Box>
-        <Box>
-          <IconButton
-            ml="5"
-            onClick={onFilters}
-            aria-label="filter product"
-            icon={<SearchIcon />}
-          />
-        </Box>
-      </HStack>
-
-      <Grid
-        mt={10}
-        px={{
-          base: 120,
-          lg: 20,
-        }}
-        gap={4}
-        templateColumns={{
-          sm: "1fr",
-          md: "1fr 1fr",
-          lg: "repeat(3, 1fr)",
-          xl: "repeat(4, 1fr)",
-        }}
+  if (isFetching || isLoading) {
+    return (
+      <Container
+        centerContent
+        position="fixed"
+        top="50%"
+        left="50%"
+        transform="translate(-50%, -50%)"
+        z-index="999px"
       >
-        {isLoading ? <></> : null}
-        {data?.map((product: IProduct) => (
-          <Product key={product.idx} product={product} />
-        ))}
-      </Grid>
+        <Spinner size="lg" />
+      </Container>
+    );
+  }
+  return (
+    <Box w="80%" m="auto" p="30px" color="gray.800">
+      <Popover placement="bottom-start">
+        <PopoverTrigger>
+          <IconButton aria-label="Search database" icon={<FilterIcon />} />
+        </PopoverTrigger>
+        <PopoverContent w="600px">
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <PopoverHeader border="0">
+            <Text as="b">Filter</Text>
+          </PopoverHeader>
+          <PopoverBody>
+            <Filter
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+              setPrice={setPrice}
+              spaces={spaces}
+              setSpaces={setSpaces}
+              placeList={[...new Set(placeList)]}
+            />
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+
+      <Box mt="20px">
+        <Text fontSize="20px" as="b">
+          상품 ({products?.length})
+        </Text>
+        {products?.length ? (
+          <SimpleGrid w="100%" minChildWidth="200px" spacing="20px" mt="10px">
+            {products?.map((item) => (
+              <Product key={item.idx} product={item} />
+            ))}
+          </SimpleGrid>
+        ) : (
+          <Container centerContent>해당하는 상품이 없습니다.</Container>
+        )}
+      </Box>
     </Box>
   );
 };
