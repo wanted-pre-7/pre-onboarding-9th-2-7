@@ -9,16 +9,27 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
+import { useAppDispatch, useAppSelector } from "../../hook";
+import { reserveActions } from "../../slice/reserveList";
 import type { IProduct } from "../../types";
 import DetailModal from "./DetailModal";
 
 const Product = (product: IProduct) => {
   const { idx, name, mainImage, description, spaceCategory, price } = product;
 
+  const dispatch = useAppDispatch();
+  const reserveList = useAppSelector((state) => state.reserveList);
+  const isReserved = reserveList.find((item) => item.idx === idx);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const onProductClick = () => {
     onOpen();
+  };
+
+  const addReservation = () => {
+    const reserveProduct = { ...product, count: 1 };
+    dispatch(reserveActions.add(reserveProduct));
   };
 
   return (
@@ -38,8 +49,8 @@ const Product = (product: IProduct) => {
             <Text color="blue.600" fontSize="lg">
               {price.toLocaleString()}원
             </Text>
-            <Button variant="solid" colorScheme="blue">
-              예약
+            <Button variant="solid" colorScheme="blue" onClick={addReservation}>
+              {isReserved ? "예약완료" : "예약"}
             </Button>
           </InfoWrap>
         </ProductBody>

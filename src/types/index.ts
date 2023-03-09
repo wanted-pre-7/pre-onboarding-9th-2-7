@@ -7,6 +7,7 @@ export interface IProduct {
   price: number;
   maximumPurchases: number;
   registrationDate: string;
+  count?: number;
 }
 
 export interface IModalProps {

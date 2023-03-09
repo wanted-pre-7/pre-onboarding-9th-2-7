@@ -1,7 +1,9 @@
-import Header from "../components/common/Header";
+import { useAppSelector } from "../hook";
 
 const Reservations = () => {
-  return <Header></Header>;
+  const reserveList = useAppSelector((state) => state.reserveList);
+  console.log(reserveList);
+  return <div></div>;
 };
 
 export default Reservations;

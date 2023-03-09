@@ -1,8 +1,11 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import reserveList from "../slice/reserveList";
 // ...
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    reserveList: reserveList.reducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
