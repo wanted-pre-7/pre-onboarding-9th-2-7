@@ -1,8 +1,11 @@
-import { HStack, Box, Heading } from "@chakra-ui/react";
-import CartIcon from "./CartIcon";
+import { HStack, Box, Heading, Badge } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
+import CartIcon from "./CartIcon";
+import { useAppSelector } from "../app/hook";
+
 const Header = () => {
+  const { cart } = useAppSelector((state) => state);
   return (
     <>
       <HStack
@@ -18,6 +21,7 @@ const Header = () => {
 
           <Link to={"/reservations"}>
             <CartIcon />
+            <Badge>{cart.totalQuantitiy}</Badge>
           </Link>
         </Box>
       </HStack>

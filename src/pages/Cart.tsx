@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../app/hook";
 
 const Cart = () => {
-  const cartList = useAppSelector((state) => state.cart);
-  console.log(cartList);
+  const { cart } = useAppSelector((state) => state);
+  console.log(cart);
   return (
     <div>
       <div>cart</div>
