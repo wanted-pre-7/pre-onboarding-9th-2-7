@@ -3,7 +3,7 @@ import axios from "axios";
 import type { IProduct } from "../types/product";
 
 const client = axios.create({
-  baseURL: "http://localhost:3000/products",
+  baseURL: "/mock/data.json",
 });
 
 export const getProducts = async () => {
