@@ -20,15 +20,15 @@ npm i
 npm run dev
 ```
 
-> 요구사항
+## **요구사항**
 > 
 1. 유저가 페이지를 처음 열었을 때 “/main”에 도착하도록 만들어주세요
-- main에는 여행 상품 정보 (mock JSON) 를 활용하여 여행 상품 정보를 노출해야합니다.
-- 리스트에서 노출해야 하는 정보: idx, name, mainImage, price, spaceCategory`
-- 예약 버튼을 달아 예약 버튼을 클릭시 여행 상품 장바구니에서 사용 할 수 있도록 상품 데이터를 저장해주세요.
-- 여행 상품 정보를 클릭했을 때 여행 상품을 자세히 볼 수 있는 모달창을 제작해주세요
-- 모달에서 노출해야 하는 정보: `idx`, `name`, `mainImage`, `description`, `spaceCategory`, `price`, `maximumPurchases`, `registrationDate`
-1. 여행 상품 리스트의 가격(price), 공간(spaceCategory) 필터 기능을 만들어주세요.
+    - main에는 여행 상품 정보 (mock JSON) 를 활용하여 여행 상품 정보를 노출해야합니다.
+    - 리스트에서 노출해야 하는 정보: idx, name, mainImage, price, spaceCategory`
+    - 예약 버튼을 달아 예약 버튼을 클릭시 여행 상품 장바구니에서 사용 할 수 있도록 상품 데이터를 저장해주세요.
+    - 여행 상품 정보를 클릭했을 때 여행 상품을 자세히 볼 수 있는 모달창을 제작해주세요
+    - 모달에서 노출해야 하는 정보: `idx`, `name`, `mainImage`, `description`, `spaceCategory`, `price`, `maximumPurchases`, `registrationDate`
+1. 여행 상품 리스트의 가격(`price`), 공간(`spaceCategory`) 필터 기능을 만들어주세요.
     - [예시) 0~1000, 1500~3000](notion://www.notion.so/%EA%B0%80%EA%B2%A9)
     - [예시) 서울, 부산] (공간)
     - 개별 필터링과, 다중 필터링이 모두 가능하도록 구현해주세요
