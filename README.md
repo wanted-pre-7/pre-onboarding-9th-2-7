@@ -20,7 +20,7 @@ npm i
 npm run dev
 ```
 
-## **요구사항**
+### **요구사항**
 > 
 1. 유저가 페이지를 처음 열었을 때 “/main”에 도착하도록 만들어주세요
     - main에는 여행 상품 정보 (mock JSON) 를 활용하여 여행 상품 정보를 노출해야합니다.
@@ -58,36 +58,30 @@ npm run dev
 
 1. 데이터 로딩 시 skeleton ui 사용
 - 로딩 중일 때 사용자에게 시각적인 피드백을 제공하기 위해 skeleton ui를 사용. 사용자는 페이지가 로드되는 동안 콘텐츠의 완전한 형태를 볼 수 없지만, skeleton ui는 로딩 중인 콘텐츠를 시각적으로 표시해 사용자에게 로딩 중임을 알리는 역할을 한다.
-1. 장바구니 새로고침 시 데이터 유지
+2. 장바구니 새로고침 시 데이터 유지
 - 사용자가 장바구니를 새로고침하면 장바구니의 내용이 사라지는 것을 방지하기 위해**`sessionStorageMiddleware`**라는 미들웨어를 추가.이 미들웨어는 Redux Store가 dispatch되기 전에 실행되며, 상태를 sessionStorage에 저장한다. 이를 통해 사용자가 새로고침하거나 브라우저를 닫았을 때 상태가 유지되도록 한다.
-1. ChakraUi의 Toast alert 사용
+3. ChakraUi의 Toast alert 사용
 - 사용자의 행동에 대한 결과를 시각적으로 전달함으로써 사용자 경험을 개선시킬 수 있다.
-1. 메인 페이지에서 상품이 장바구니에 담기면 예약버튼 비활성화
+4. 메인 페이지에서 상품이 장바구니에 담기면 예약버튼 비활성화
 - 장바구니에 상품을 추가할 때, 예약 버튼이 비활성화되면 사용자가 장바구니에 무엇이 들어있는지 쉽게 파악할 수 있고, 장바구니와 관련된 작업을 진행할 때 사용자의 실수를 방지할 수 있다.
-1. ChakraUi의 <NumberInput/> 사용해서 장바구니 수량 변경
+5. ChakraUi의 <NumberInput/> 사용해서 장바구니 수량 변경
 - 수량 버튼에 아무것도 입력하지 않으면, 해당 값이 **`undefined`**로 전달되어 `NaN`이 발생. 잘못된 값이 들어왔을 경우 1로 처리
-1. 장바구니 수량 및 총 금액 계산 방식
-    
-    장바구니에 담긴 상품의 수량을 효율적으로 관리하기 위해 redux state를 사용. 
-    
-    총 금액은 예약 상품 변경시마다 reduce()로 계산
-    
-2. 장바구니 개별 상품의 수량에 따른 가격 변동도 확인할 수 있도록 유틸 함수 구현
+6. 장바구니 수량 및 총 금액 계산 방식
+- 장바구니에 담긴 상품의 수량을 효율적으로 관리하기 위해 redux state를 사용. 
+- 총 금액은 예약 상품 변경시마다 reduce()로 계산 
+7. 장바구니 개별 상품의 수량에 따른 가격 변동도 확인할 수 있도록 유틸 함수 구현
 - 장바구니에 담긴 상품의 수량이 변경될 때마다, 해당 상품의 가격도 변동. 이를 효율적으로 처리하기 위해 유틸 함수를 구현
-1. 배포는  public에 json파일을 두고 fetch  `baseURL: '/mock/mock_data.json` 을 통해 데이터 조회
-2. 미들웨어
-- 수량버튼 예외처리
-- 헤더 백드롭필터
+8. 배포는  public에 json파일을 두고 fetch  `baseURL: '/mock/mock_data.json` 을 통해 데이터 조회
 
 ## convention
 
-### **git Flow**
+## **git Flow**
 
 - branch : 기능별 작업
 - main(master) : 최종 배포
 <img src="[https://user-images.githubusercontent.com/80516736/221170041-8b7d3762-1152-4407-a600-d9fe1e87e08d.png](https://user-images.githubusercontent.com/80516736/221170041-8b7d3762-1152-4407-a600-d9fe1e87e08d.png)">
 
-### **Commit Message Pre-fix**
+## **Commit Message Pre-fix**
 
 - feat: 새로운 기능 추가
 - fix: 버그 수정
