@@ -7,7 +7,6 @@ import {
   Route,
 } from "react-router-dom";
 import Header from "./components/Header";
-import SkeletonList from "./components/SkeletonList";
 import SkeletonUi from "./components/SkeletonUi";
 import CartPage from "./pages/CartPage";
 import MainPage from "./pages/MainPage";
