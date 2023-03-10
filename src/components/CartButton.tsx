@@ -43,5 +43,5 @@ const badgeStyle = css`
   border-radius: 25px;
   margin-left: 1rem;
   font-weight: bold;
-  background-color: #086f83;
+  background-color: #02a9ca;
 `;

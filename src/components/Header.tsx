@@ -43,10 +43,8 @@ const headerStyle = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 960px;
-    width: 100%;
+    width: 80%;
     margin: 0 auto;
-    padding: 0 20px 0 20px;
   }
 `;
 

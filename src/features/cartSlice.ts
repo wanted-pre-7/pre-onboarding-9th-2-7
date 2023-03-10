@@ -12,9 +12,6 @@ const cartSlice = createSlice({
   name: "cartSlice",
   initialState,
   reducers: {
-    // addItems: (state, action: PayloadAction<ICartStateType[]>) => {
-    //   return;
-    // },
     addItem: (state, action: PayloadAction<IProductType>) => {
       state.push({ ...action.payload, qty: 1 });
     },

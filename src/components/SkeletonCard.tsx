@@ -12,11 +12,15 @@ const SkeletonCard = ({ length }: { length: number }) => {
             borderWidth="1px"
             borderRadius="lg"
             bg="white"
-            width={{ sm: "340px", md: "100%" }}
-            padding="5"
+            w="100%"
+            h="100%"
+            overflow="hidden"
           >
-            <Skeleton height={{ sm: "232px", md: "200px" }} borderRadius="lg" />
-            <Box>
+            <Skeleton
+              w="100%"
+              height={{ sm: "320px", md: "200px", lg: "220px", xl: "300px" }}
+            />
+            <Box padding="15px">
               <SkeletonText
                 mt="4"
                 width="100%"
