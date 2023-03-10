@@ -100,7 +100,7 @@ npm run dev
 <table>
 <tbody>
 <tr>
-<td align="center"><a href="[https://github.com/yujiseok](https://github.com/yujiseok)"><img src="[https://avatars.githubusercontent.com/u/83855636?v=4](https://avatars.githubusercontent.com/u/83855636?v=4)" width="100px;" alt=""/><br /><sub><b>유지석(팀장)</b></sub></a><br /></td>
+<td align="center"><a href="[https://github.com/yujiseok](https://github.com/yujiseok)"><img src="https://avatars.githubusercontent.com/u/83855636?v=4" width="100px;" alt=""/><br /><sub><b>유지석(팀장)</b></sub></a><br /></td>
 <td align="center"><a href="[https://github.com/kimhw7](https://github.com/kimhw7)"><img src="[https://avatars.githubusercontent.com/u/100066239?v=4](https://avatars.githubusercontent.com/u/100066239?v=4)" width="100px;" alt=""/><br /><sub><b>김현우</b></sub></a><br /></td>
 <td align="center"><a href="[https://github.com/Everylisy](https://github.com/Everylisy)"><img src="[https://avatars.githubusercontent.com/u/60170829?v=4](https://avatars.githubusercontent.com/u/60170829?v=4)" width="100px;" alt=""/><br /><sub><b>이영우</b></sub></a><br /></td>
 <td align="center"><a href="[https://github.com/hansejun](https://github.com/hansejun)"><img src="[https://avatars.githubusercontent.com/u/86880916?v=4](https://avatars.githubusercontent.com/u/86880916?v=4)" width="100px;" alt=""/><br /><sub><b>한세준</b></sub></a><br /></td>
