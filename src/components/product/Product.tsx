@@ -2,12 +2,12 @@ import {
   Badge,
   Box,
   Button,
-  ButtonGroup,
-  Divider,
+  HStack,
   Image,
   Text,
   useDisclosure,
   useToast,
+  VStack,
 } from "@chakra-ui/react";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { cartActions } from "../../features/cartSlice";
@@ -17,7 +17,7 @@ import ProductDetailModal from "./ProductDetailModal";
 const Product = ({ product }: { product: IProduct }) => {
   const toast = useToast();
 
-  const cartItems = useAppSelector((state) => state.cart.items);
+  const cartItems = useAppSelector((state) => state.cart);
   const isReservated = cartItems.find((list) => list.idx === product.idx);
 
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -36,14 +36,9 @@ const Product = ({ product }: { product: IProduct }) => {
     } else {
       dispatch(
         cartActions.addItemToCart({
-          idx: product.idx,
-          price: product.price,
-          name: product.name,
-          mainImage: product.mainImage,
-          description: product.description,
-          spaceCategory: product.spaceCategory,
-          maximumPurchases: product.maximumPurchases,
-          registrationDate: product.registrationDate,
+          ...product,
+          quantity: 1,
+          totalPrice: product.price,
         }),
       );
       toast({
@@ -56,20 +51,17 @@ const Product = ({ product }: { product: IProduct }) => {
   };
 
   return (
-    <Box
-      minW="200px"
-      border="1px"
-      borderRadius="4px"
-      borderColor="gray.100"
-      overflow="hidden"
-    >
+    <VStack alignItems={"flex-start"}>
       <ProductDetailModal isOpen={isOpen} onClose={onClose} product={product} />
-      <Image w="100%" src={product?.mainImage} alt={product?.name} />
-      <Box p="8px" cursor="pointer">
-        <Badge borderRadius="full" px="2" colorScheme="cyan">
-          {product?.spaceCategory}
-        </Badge>
-        <Box display="flex" flexDir="column" mt="10px" minH="100px">
+      <Box mb={3} borderWidth="0.5px">
+        <Image
+          objectFit={"cover"}
+          boxSize="400px"
+          src={product?.mainImage}
+          alt={product?.name}
+        />
+        <Box padding={5}>
+          <Badge colorScheme="blue">{product.spaceCategory}</Badge>
           <Text color="gray.600" fontSize="12px">
             상품 번호 {product?.idx}
           </Text>
@@ -79,28 +71,28 @@ const Product = ({ product }: { product: IProduct }) => {
           <Text color="cyan.800" fontSize="18px" fontWeight="black">
             {product?.price.toLocaleString("ko-kr")}원
           </Text>
+          <HStack mt="5">
+            <Button width="100%" rounded="2xl" onClick={onOpen}>
+              자세히
+            </Button>
+            {isReservated ? (
+              <Button width="100%" rounded="2xl" disabled>
+                예약완료
+              </Button>
+            ) : (
+              <Button
+                onClick={addToCartHandler}
+                colorScheme="blue"
+                width="100%"
+                rounded="2xl"
+              >
+                예약하기
+              </Button>
+            )}
+          </HStack>
         </Box>
-        <Divider my="15px" />
-        <ButtonGroup display="flex" justifyContent="center" spacing="2">
-          <Button variant="outline" colorScheme="cyan" onClick={onOpen}>
-            자세히
-          </Button>
-          {isReservated ? (
-            <Button variant="solid" disabled>
-              예약완료
-            </Button>
-          ) : (
-            <Button
-              variant="solid"
-              colorScheme="cyan"
-              onClick={addToCartHandler}
-            >
-              예약하기
-            </Button>
-          )}
-        </ButtonGroup>
       </Box>
-    </Box>
+    </VStack>
   );
 };
 

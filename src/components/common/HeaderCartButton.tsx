@@ -31,14 +31,14 @@ const BadgeStyle = styled.span`
 `;
 
 const HeaderCartButton = () => {
-  const cartQuantity = useAppSelector((state) => state.cart.totalQuantity);
+  const cart = useAppSelector((state) => state.cart);
 
   return (
     <ButtonStyle>
       <IconStyle>
         <CartIcon />
       </IconStyle>
-      <BadgeStyle>{cartQuantity}</BadgeStyle>
+      <BadgeStyle>{cart.length}</BadgeStyle>
     </ButtonStyle>
   );
 };

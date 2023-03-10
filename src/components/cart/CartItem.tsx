@@ -5,27 +5,34 @@ import {
   CardFooter,
   Heading,
   Image,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Stack,
   Text,
   useToast,
+  Wrap,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { useAppDispatch } from "../../app/hook";
 import { cartActions } from "../../features/cartSlice";
 import type { ICartItem } from "../../features/cartSlice";
 
 const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
   const toast = useToast();
+  const [value, setValue] = useState<number>(cartItem.quantity);
   const dispatch = useAppDispatch();
 
-  const removeItemHandler = () => {
-    dispatch(cartActions.removeItemFromCart(cartItem.idx));
-  };
   const removeHandler = () => {
     dispatch(cartActions.removeFromCart(cartItem.idx));
   };
 
-  const addItemHandler = () => {
-    if (cartItem.maximumPurchases == cartItem.quantity) {
+  const handleChange = (val: number) => {
+    if (val < 1) val = 1;
+
+    if (cartItem.maximumPurchases < val) {
       toast({
         title: "최대 구매 수량을 초과하였습니다.",
         status: "error",
@@ -33,25 +40,17 @@ const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
         position: "bottom-right",
       });
     } else {
-      dispatch(
-        cartActions.addItemToCart({
-          idx: cartItem.idx,
-          price: cartItem.price,
-          name: cartItem.name,
-          mainImage: cartItem.mainImage,
-          description: cartItem.description,
-          spaceCategory: cartItem.spaceCategory,
-          maximumPurchases: cartItem.maximumPurchases,
-          registrationDate: cartItem.registrationDate,
-        }),
-      );
+      setValue(val);
+      dispatch(cartActions.updateItem({ ...cartItem, quantity: val }));
     }
   };
+
   return (
     <Card
       direction={{ base: "column", sm: "row" }}
       overflow="hidden"
       variant="outline"
+      mt="2"
     >
       <Image
         objectFit="cover"
@@ -61,23 +60,36 @@ const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
       />
       <Stack>
         <CardBody>
+          <Text py="2" size="sm">
+            상품 번호 {cartItem.idx}
+          </Text>
           <Heading size="md">{cartItem.name}</Heading>
 
           <Text py="2">{cartItem.description}</Text>
+
+          <Text color={"red"} size="sm">
+            1인 최대 구매 수량 {cartItem?.maximumPurchases}
+          </Text>
+          <Text color={"#086F83"} fontWeight="black" fontSize={"2xl"}>
+            {cartItem.totalPrice} 원
+          </Text>
         </CardBody>
 
         <CardFooter>
-          <Text mr="5" fontSize={"xl"} color="blue.600">
-            {cartItem.totalPrice} 원
-          </Text>
-
-          <Button mr="5" onClick={addItemHandler}>
-            +
-          </Button>
-          <span>{cartItem.quantity}</span>
-          <Button ml="5" onClick={removeItemHandler}>
-            -
-          </Button>
+          <NumberInput
+            onChange={(valueString) => handleChange(parseInt(valueString))}
+            w="90px"
+            defaultValue={value}
+            min={1}
+            max={cartItem?.maximumPurchases}
+            focusBorderColor="gray.200"
+          >
+            <NumberInputField />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
           <Button
             onClick={removeHandler}
             ml="5"

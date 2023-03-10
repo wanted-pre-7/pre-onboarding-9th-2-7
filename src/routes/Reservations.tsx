@@ -1,33 +1,55 @@
-import { Box, Center, Heading, Text, VStack } from "@chakra-ui/react";
+import { Grid, GridItem, Text } from "@chakra-ui/react";
 import { useAppSelector } from "../app/hook";
 import CartItem from "../components/cart/CartItem";
+import type { ICartItem } from "../features/cartSlice";
 
 const Reservations = () => {
   const cart = useAppSelector((state) => state.cart);
 
-  return (
-    <Center>
-      <Box w="70%" mt="10">
-        <Heading mb="5">장바구니</Heading>
-        {cart.totalQuantity == 0 ? (
-          <Box minH="200" backgroundColor={"gray.100"}>
-            <Center>
-              <Text mt="75">장바구니가 비어있습니다.</Text>
-            </Center>
-          </Box>
-        ) : (
-          <Box minH="200" borderColor="black">
-            {cart.items.map((item) => (
-              <CartItem key={item.idx} cartItem={item} />
-            ))}
-          </Box>
-        )}
+  const totalPrice = cart
+    .map((el) => el.price * el.quantity)
+    .reduce((acc, cur) => acc + cur, 0);
 
-        <Text mt="5" align="right" fontSize={"2xl"} color="blue.600">
-          Total : {cart.totalPrice} 원
+  return (
+    <Grid
+      mt={10}
+      px={{
+        base: 20,
+        lg: 20,
+      }}
+      gap={4}
+      templateColumns={{
+        sm: "1fr",
+        md: "1fr",
+        lg: "repeat(5, 1fr)",
+      }}
+    >
+      <GridItem
+        colSpan={{
+          sm: 1,
+          md: 1,
+          lg: 3,
+        }}
+      >
+        {cart.map((item: ICartItem) => (
+          <CartItem key={item.idx} cartItem={item} />
+        ))}
+      </GridItem>
+      <GridItem
+        colStart={{
+          sm: 1,
+          md: 1,
+          lg: 5,
+        }}
+      >
+        <Text fontSize="2xl" as="b">
+          총 상품금액 :{" "}
         </Text>
-      </Box>
-    </Center>
+        <Text fontSize="2xl" as="b">
+          {totalPrice} 원
+        </Text>
+      </GridItem>
+    </Grid>
   );
 };
 
