@@ -1,16 +1,24 @@
+import { Suspense } from "react";
 import {
-  Route,
   createBrowserRouter,
   createRoutesFromElements,
   Navigate,
   Outlet,
+  Route,
 } from "react-router-dom";
-import MainPage from "./pages/MainPage";
 import Header from "./components/Header";
-import CartPage from "./pages/CartPage";
-import { Suspense } from "react";
 import SkeletonList from "./components/SkeletonList";
-
+import SkeletonUi from "./components/SkeletonUi";
+import CartPage from "./pages/CartPage";
+import MainPage from "./pages/MainPage";
+const Layout = () => {
+  return (
+    <>
+      <Header />
+      <Outlet />
+    </>
+  );
+};
 const Router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -19,7 +27,7 @@ const Router = createBrowserRouter(
         <Route
           path="/main"
           element={
-            <Suspense fallback={<SkeletonList />}>
+            <Suspense fallback={<SkeletonUi />}>
               <MainPage />
             </Suspense>
           }
@@ -30,12 +38,3 @@ const Router = createBrowserRouter(
   ),
 );
 export default Router;
-
-function Layout() {
-  return (
-    <>
-      <Header />
-      <Outlet />
-    </>
-  );
-}
