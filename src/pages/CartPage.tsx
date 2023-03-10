@@ -21,7 +21,7 @@ const CartPage = () => {
   }, []);
 
   return (
-    <Center display="flex" flexDir="column" p="20px">
+    <Center mt="120px" display="flex" flexDir="column" p="20px">
       <Text as="b" fontSize={theme.sizes.xl}>
         장바구니({cartItems.length})
       </Text>
