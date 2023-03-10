@@ -1,4 +1,4 @@
-import { Button, Heading, Stack } from "@chakra-ui/react";
+import { Button, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../app/hook";
 import ItemCard from "../components/Reservations/ItemCard";
@@ -6,6 +6,12 @@ import Layout from "../components/Reservations/Layout";
 
 const Cart = () => {
   const cartItems = useAppSelector((state) => state.cart);
+
+  const totalAmount = cartItems
+    .map((v) => {
+      return +(v.price * v?.quantity);
+    })
+    .reduce((acc, cur) => acc + cur, 0);
 
   return (
     <Layout>
@@ -21,9 +27,22 @@ const Cart = () => {
           </Link>
         </Stack>
       )}
-      {cartItems?.map((product) => (
-        <ItemCard key={product.idx} {...product} />
-      ))}
+
+      <Flex flexDir="column">
+        {cartItems?.length > 0 && (
+          <>
+            <Heading size="lg" mb="2" fontFamily="Spoqa Han Sans Neo">
+              장바구니 ({cartItems.length})
+            </Heading>
+            <Text fontSize="22" mb="4">
+              총 결제 금액 - ₩ {totalAmount.toLocaleString()}원
+            </Text>
+          </>
+        )}
+        {cartItems?.map((product) => (
+          <ItemCard key={product.idx} {...product} />
+        ))}
+      </Flex>
     </Layout>
   );
 };
