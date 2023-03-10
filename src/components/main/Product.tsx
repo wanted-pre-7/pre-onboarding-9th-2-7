@@ -45,7 +45,7 @@ const Product = (product: IProduct) => {
       dispatch(reserveActions.add(reserveProduct));
       toast({
         description: "상품이 장바구니에 추가되었습니다.",
-        position: "top-right",
+        position: "bottom-right",
         status: "success",
         duration: 3000,
         isClosable: true,
@@ -57,7 +57,7 @@ const Product = (product: IProduct) => {
       dispatch(reserveActions.addCount(idx));
       toast({
         description: "상품 수량을 추가 하였습니다.",
-        position: "top-right",
+        position: "bottom-right",
         status: "success",
         duration: 3000,
         isClosable: true,

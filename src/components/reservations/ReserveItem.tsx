@@ -47,7 +47,7 @@ const ReserveItem = (item: IReserveProduct) => {
     toast({
       title: `${name} 최대 구매 개수 초과`,
       description: `인 당 ${maximumPurchases}개만 구매할 수 있습니다.`,
-      position: "top-right",
+      position: "bottom-right",
       status: "error",
       duration: 3000,
       isClosable: true,
@@ -55,6 +55,7 @@ const ReserveItem = (item: IReserveProduct) => {
   };
 
   const onSubtractQuantity = () => {
+    if (count === 1) return;
     dispatch(reserveActions.subtractCount(idx));
   };
 
@@ -78,7 +79,7 @@ const ReserveItem = (item: IReserveProduct) => {
           </Heading>
 
           <Text py="2">{description}</Text>
-          <Text>{price.toLocaleString()}원</Text>
+          <Text>{(price * count).toLocaleString()}원</Text>
         </CardBody>
 
         <FooterWrap>
@@ -86,7 +87,7 @@ const ReserveItem = (item: IReserveProduct) => {
             <NumberInput
               size="sm"
               maxW={20}
-              defaultValue={count}
+              value={count}
               min={1}
               max={maximumPurchases}
             >
@@ -97,7 +98,9 @@ const ReserveItem = (item: IReserveProduct) => {
               </NumberInputStepper>
             </NumberInput>
             {count === maximumPurchases && (
-              <QuantityMessage>최대 수량이 담겨있습니다.</QuantityMessage>
+              <QuantityMessage>
+                최대 구매 수량은 {maximumPurchases}개입니다.
+              </QuantityMessage>
             )}
           </QuantityWrap>
           <Button onClick={onRemoveProduct}>삭제</Button>

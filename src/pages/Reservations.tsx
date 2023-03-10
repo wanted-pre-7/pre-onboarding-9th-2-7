@@ -13,9 +13,6 @@ const Reservations = () => {
     }, 0);
   }, [reserveList]);
 
-  console.log(totalPrice);
-
-  console.log(reserveList);
   return (
     <>
       <Header />
