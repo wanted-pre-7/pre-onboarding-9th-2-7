@@ -14,11 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
-    // "baseUrl": "./src"
-    // "paths": {
-    //   "@pages/*": ["src/pages/*"]
-    // }
+    "jsx": "react-jsx",
+    "types": ["node", "vite/client"]
   },
   "include": ["src", "**/*.ts", "**/*.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
