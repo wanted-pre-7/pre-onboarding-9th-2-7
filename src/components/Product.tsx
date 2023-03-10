@@ -19,7 +19,7 @@ type PropsType = {
   info: IProductType;
 };
 
-const SolProduct = ({ info }: PropsType) => {
+const Product = ({ info }: PropsType) => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cartSlice);
   const toast = useToast();
@@ -44,7 +44,7 @@ const SolProduct = ({ info }: PropsType) => {
       });
     }
   };
-  console.log(cartItems);
+
   return (
     <Box
       minW="200px"
@@ -90,4 +90,4 @@ const SolProduct = ({ info }: PropsType) => {
   );
 };
 
-export default SolProduct;
+export default Product;

@@ -56,7 +56,7 @@ const Item = ({ product }: PropsType) => {
           <Heading fontSize="25px" fontWeight="black">
             {product?.name}
           </Heading>
-          <Text py="2">{product?.description}</Text>
+          <Text py="2">{product?.description.substring(0, 30)}</Text>
           <Text fontSize="25px" fontWeight="black" color="cyan.800">
             {(product?.price * value).toLocaleString('ko-kr')}원
           </Text>

@@ -1,7 +1,7 @@
 import { Box, Container, SimpleGrid, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Filter from '../components/Filter';
-import SolProduct from '../components/SolProduct';
+import Product from '../components/Product';
 import useProductsQuery from '../query/useProductsQuery';
 
 const MainPage = () => {
@@ -45,7 +45,7 @@ const MainPage = () => {
         {products?.length ? (
           <SimpleGrid w="100%" minChildWidth="200px" spacing="20px" mt="10px">
             {products.map((item) => (
-              <SolProduct key={item.idx} info={item} />
+              <Product key={item.idx} info={item} />
             ))}
           </SimpleGrid>
         ) : (

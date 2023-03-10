@@ -27,7 +27,6 @@ const Filter = ({
   setPrice,
   setSpaces,
 }: PropsType) => {
-  console.log(spaceList, spaces);
   const handleAllCheck = (checked: boolean) => {
     if (checked) {
       const idArr: string[] = [];
