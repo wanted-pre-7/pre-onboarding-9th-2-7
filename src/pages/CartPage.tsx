@@ -1,24 +1,16 @@
 import { Button, Center, Container, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../app/hook";
+import { useAppSelector } from "../app/hook";
 import Item from "../components/Item";
-import { addItems } from "../features/cartSlice";
 import getTotalPrice from "../utils/getTotalPrice";
 import theme from "../utils/theme";
 
 const CartPage = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cartSlice);
 
   const totalPrice = getTotalPrice(cartItems);
-
-  useEffect(() => {
-    const items = sessionStorage.getItem("cart");
-    if (items) dispatch(addItems(JSON.parse(items)));
-  }, []);
 
   const handleClick = () => navigate("/main");
 
@@ -51,16 +43,6 @@ const CartPage = () => {
 };
 
 export default CartPage;
-
-const MainContainer = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  padding-bottom: 100px;
-  color: ${theme.colors.main400};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
 
 const Price = styled.span`
   font-weight: 900;

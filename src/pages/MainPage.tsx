@@ -3,12 +3,11 @@ import styled from "@emotion/styled";
 import { useMemo, useState } from "react";
 import Card from "../components/Card";
 import Filter from "../components/Filter";
-import Loader from "../components/Loader";
-import useProductsQuery from "../utils/useProductsQuery";
 import theme from "../utils/theme";
+import useProductsQuery from "../utils/useProductsQuery";
 
 const MainPage = () => {
-  const { data, isFetching, isLoading } = useProductsQuery();
+  const { data } = useProductsQuery();
   const [selectSpaces, setSelectSpaces] = useState<string[]>([]);
   const [[minPrice, maxPrice], setPrice] = useState<number[]>([0, 30000]);
 
@@ -25,7 +24,6 @@ const MainPage = () => {
       item.price <= maxPrice,
   );
 
-  if (isLoading || isFetching) return <Loader />;
   return (
     <Container>
       <Text
@@ -46,28 +44,23 @@ const MainPage = () => {
       />
       <Wrapper>
         <Text as="b" fontSize={theme.sizes.lg}>
-          예약 가능한 상품({products?.length})
+          상품 목록({products?.length})
         </Text>
-        {products?.length ? (
-          <Grid
-            mt="5"
-            gap={4}
-            templateColumns={{
-              sm: "1fr",
-              md: "1fr 1fr",
-              lg: "repeat(3, 1fr)",
-              xl: "repeat(4, 1fr)",
-            }}
-          >
-            {products?.map((item) => (
-              <Card key={item.idx} product={item} />
-            ))}
-          </Grid>
-        ) : (
-          <Text fontSize={theme.sizes.m} textAlign="center" mt="100px">
-            예약 가능한 상품이 없습니다.
-          </Text>
-        )}
+
+        <Grid
+          mt="5"
+          gap={4}
+          templateColumns={{
+            sm: "1fr",
+            md: "1fr 1fr",
+            lg: "repeat(3, 1fr)",
+            xl: "repeat(4, 1fr)",
+          }}
+        >
+          {products?.map((item) => (
+            <Card key={item.idx} product={item} />
+          ))}
+        </Grid>
       </Wrapper>
     </Container>
   );
