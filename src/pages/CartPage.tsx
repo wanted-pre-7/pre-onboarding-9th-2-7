@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hook";
 import Item from "../components/Item";
-import { addItems } from "../features/cartSlice";
+// import { addItems } from "../features/cartSlice";
 import theme from "../utils/theme";
 
 const CartPage = () => {
@@ -14,11 +14,6 @@ const CartPage = () => {
     (acc, cur) => acc + cur.price * cur.qty,
     0,
   );
-
-  useEffect(() => {
-    const items = sessionStorage.getItem("cart");
-    if (items) dispatch(addItems(JSON.parse(items)));
-  }, []);
 
   return (
     <Center display="flex" flexDir="column" p="20px">
