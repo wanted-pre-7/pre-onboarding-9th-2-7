@@ -92,7 +92,7 @@ npm run dev
 
 ## 회고 및 회의록
 
-[회고](https://solwork.notion.site/2-59373cd4edb94b02ae54c352caaaaedc)
+[회고](https://solwork.notion.site/2-59373cd4edb94b02ae54c352caaaaedc) <br/>
 [기술 및 기능 리뷰](https://www.notion.so/cfbf7c8530ab43f29695dcac5923fd1c)
 
 ## 팀원
