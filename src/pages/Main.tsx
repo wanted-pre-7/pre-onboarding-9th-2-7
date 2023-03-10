@@ -13,11 +13,10 @@ export interface IProducts {
   price: number;
   maximumPurchases: number;
   registrationDate: string;
-  quantity?: number;
 }
 
 const Main = () => {
-  const { isLoading, data } = useQuery<IProducts[]>(
+  const { isLoading, isFetching, data } = useQuery<IProducts[]>(
     ["products"],
     () => fetchProducts(),
     {
@@ -27,7 +26,7 @@ const Main = () => {
 
   return (
     <>
-      {isLoading && <LoadingSpinner />}
+      {(isLoading || isFetching) && <LoadingSpinner />}
       <Layout>
         {data?.map((product) => (
           <ProductCard key={product.idx} {...product} />
