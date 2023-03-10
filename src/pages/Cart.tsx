@@ -5,7 +5,6 @@ import CartItem from "../components/cart/CartItem";
 
 const Cart = () => {
   const { cart } = useAppSelector((state) => state);
-  console.log(cart);
   return (
     <div>
       <Grid templateColumns={"repeat(3, 1fr)"}>
