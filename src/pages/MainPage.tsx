@@ -48,20 +48,26 @@ const MainPage = () => {
           상품 목록({products?.length})
         </Text>
 
-        <Grid
-          mt="5"
-          gap={4}
-          templateColumns={{
-            sm: "1fr",
-            md: "1fr 1fr",
-            lg: "repeat(3, 1fr)",
-            xl: "repeat(4, 1fr)",
-          }}
-        >
-          {products?.map((item) => (
-            <Card key={item.idx} product={item} />
-          ))}
-        </Grid>
+        {products?.length ? (
+          <Grid
+            mt="5"
+            gap={{ sm: 6, md: 4 }}
+            templateColumns={{
+              sm: "1fr",
+              md: "1fr 1fr",
+              lg: "repeat(3, 1fr)",
+              xl: "repeat(4, 1fr)",
+            }}
+          >
+            {products?.map((item) => (
+              <Card key={item.idx} product={item} />
+            ))}
+          </Grid>
+        ) : (
+          <Text fontSize={theme.sizes.m} textAlign="center" mt="100px">
+            예약 가능한 상품이 없습니다.
+          </Text>
+        )}
       </Wrapper>
     </Container>
   );
