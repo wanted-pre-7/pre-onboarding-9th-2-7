@@ -30,7 +30,7 @@ const CartItem = ({ cartItem }: { cartItem: ICartItem }) => {
   };
 
   const handleChange = (val: number) => {
-    if (val < 1) val = 1;
+    if (!val || val < 1) val = 1;
 
     if (cartItem.maximumPurchases < val) {
       toast({
