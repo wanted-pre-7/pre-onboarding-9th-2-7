@@ -32,7 +32,6 @@ const Item = ({ product }: PropsType) => {
 
   const dispatch = useAppDispatch();
   const [value, setValue] = useState<number>(product?.qty);
-  const toast = useToast();
 
   const handleClick = () => {
     dispatch(deleteItem(product.idx));

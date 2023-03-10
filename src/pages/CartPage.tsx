@@ -15,7 +15,7 @@ const CartPage = () => {
   const handleClick = () => navigate("/main");
 
   return (
-    <Center display="flex" flexDir="column" p="20px">
+    <Center mt="60px" display="flex" flexDir="column" p="20px">
       <Text as="b" fontSize={theme.sizes.xl} pt="80px">
         장바구니({cartItems.length})
       </Text>

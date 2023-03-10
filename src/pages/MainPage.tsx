@@ -31,6 +31,7 @@ const MainPage = () => {
         fontWeight="black"
         textAlign="center"
         p="50px"
+        mt="120px"
       >
         지금 바로 로컬 여행을 떠나보세요!
       </Text>
