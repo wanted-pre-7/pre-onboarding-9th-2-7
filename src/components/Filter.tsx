@@ -30,14 +30,14 @@ const Filter = ({
   setSelectSpaces,
 }: PropsType) => {
   useEffect(() => {
-    let idArr: string[] = [];
+    const idArr: string[] = [];
     spaceList.map((el) => idArr.push(el));
     setSelectSpaces(idArr);
   }, []);
 
   const handleAllCheck = (checked: boolean) => {
     if (checked) {
-      let idArr: string[] = [];
+      const idArr: string[] = [];
       spaceList.map((el) => idArr.push(el));
       setSelectSpaces(idArr);
     } else setSelectSpaces([]);

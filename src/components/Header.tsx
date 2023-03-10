@@ -1,59 +1,51 @@
-import { Badge, Box, Image } from "@chakra-ui/react";
-import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../app/hook";
-import cart from "../assets/cart.svg";
-import theme from "../utils/theme";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+import { Link } from "react-router-dom";
+import CartButton from "./CartButton";
 
 const Header = () => {
-  const navigate = useNavigate();
-  const handleNav = (link: string) => navigate(link);
-
-  const cartItems = useAppSelector((state) => state.cartSlice);
-
   return (
-    <Container>
-      <Wrapper>
-        <Box as="b" cursor="pointer" onClick={() => handleNav("/main")}>
-          라이크어로컬
-        </Box>
-        <CartWrapper>
-          <Image
-            src={cart}
-            cursor="pointer"
-            onClick={() => handleNav("/reservations")}
-          />
-          <Badge borderRadius="full" px="8px" colorScheme="cyan">
-            {cartItems.length}
-          </Badge>
-        </CartWrapper>
-      </Wrapper>
-    </Container>
+    <>
+      <header css={headerStyle}>
+        <div>
+          <Link to="/main">
+            <h2>Like a local</h2>
+          </Link>
+          <Link to="/reservations">
+            <CartButton />
+          </Link>
+        </div>
+      </header>
+    </>
   );
 };
 
-export default Header;
-
-const Container = styled.div`
-  position: sticky;
+const headerStyle = css`
+  position: fixed;
   top: 0;
-  z-index: 888;
-  display: flex;
-  justify-content: center;
+  left: 0;
   width: 100%;
-  height: 80px;
-  padding: 30px;
-  background: ${theme.colors.main100};
-  border: 1px solid ${theme.colors.main200};
-`;
-
-const Wrapper = styled.div`
-  width: 1200px;
+  height: 5rem;
+  background-color: rgba(255, 255, 255, 0.762);
+  backdrop-filter: blur(30px);
+  color: black;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(78, 78, 78, 0.25);
+  z-index: 10;
+  h2 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+  }
 `;
 
-const CartWrapper = styled.div`
-  display: flex;
-  gap: 3px;
-`;
+export default Header;

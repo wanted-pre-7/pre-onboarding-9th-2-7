@@ -1,20 +1,21 @@
 import {
-  ButtonGroup,
-  Button,
-  Text,
-  Image,
   Badge,
-  useToast,
+  Button,
+  ButtonGroup,
+  Image,
+  Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
+import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hook";
+import fallback from "../assets/images/fallback.jpg";
 import { addItem } from "../features/cartSlice";
 import type { ICartStateType } from "../features/cartSlice";
 import type { IProductType } from "../types/product";
-import DetailModal from "./DetailModal";
-import styled from "@emotion/styled";
 import theme from "../utils/theme";
-import { useEffect, useState } from "react";
+import DetailModal from "./DetailModal";
 
 type PropsType = {
   product: IProductType;
@@ -49,7 +50,12 @@ const Card = ({ product }: PropsType) => {
     <>
       <DetailModal isOpen={isOpen} onClose={onClose} product={product} />
       <Container>
-        <Image src={product?.mainImage} alt={product?.name} w="100%" />
+        <Image
+          src={product?.mainImage}
+          alt={product?.name}
+          w="100%"
+          fallbackSrc={fallback}
+        />
         <Wrapper>
           <Badge borderRadius="full" px="8px" colorScheme="cyan">
             {product?.spaceCategory}
