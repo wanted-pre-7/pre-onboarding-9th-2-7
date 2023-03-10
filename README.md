@@ -2,8 +2,8 @@
 
 라이크어로컬 여행 상품 리스트를 보고 장바구니에 저장할 수 있는 사이트 구현
 
-[배포]
-http://likealocal-7.s3-website.ap-northeast-2.amazonaws.com/main
+### [배포주소](http://likealocal-7.s3-website.ap-northeast-2.amazonaws.com/main)
+<br/>
 
 <img src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white"/> <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>
 <img src="https://img.shields.io/badge/-Vite-646CFF?style=flat-square&logo=vite&logoColor=white"/>
@@ -14,7 +14,7 @@ http://likealocal-7.s3-website.ap-northeast-2.amazonaws.com/main
 <img src="https://img.shields.io/badge/-Redux_Toolkit-764ABC?style=flat-square&logo=redux&logoColor=white"/>
 <img src="https://img.shields.io/badge/-React_Query-ff2660?style=flat-square&logo=react&logoColor=white"/>
 
-</br>
+<br/>
 
 ## 프로젝트 실행 방법
 
@@ -38,8 +38,8 @@ npm run dev
    - 여행 상품 정보를 클릭했을 때 여행 상품을 자세히 볼 수 있는 모달창을 제작해주세요
    - 모달에서 노출해야 하는 정보: `idx`, `name`, `mainImage`, `description`, `spaceCategory`, `price`, `maximumPurchases`, `registrationDate`
 1. 여행 상품 리스트의 가격(`price`), 공간(`spaceCategory`) 필터 기능을 만들어주세요.
-   - [예시) 0~1000, 1500~3000](notion://www.notion.so/%EA%B0%80%EA%B2%A9)
-   - [예시) 서울, 부산] (공간)
+   - 예시) 0 - 1000, 1500 - 3000 가격
+   - 예시) 서울, 부산 공간
    - 개별 필터링과, 다중 필터링이 모두 가능하도록 구현해주세요
 1. 여행 상품 장바구니 (/reservations)를 만들어주세요.
    - 저장한 여행 상품의 리스트를 보여주고 삭제가 가능할 수 있도록 구성해주세요.
@@ -80,7 +80,7 @@ npm run dev
 
 2. 장바구니 새로고침 시 데이터 유지
 
-- 사용자가 장바구니를 새로고침하면 장바구니의 내용이 사라지는 것을 방지하기 위해**`sessionStorageMiddleware`**라는 미들웨어를 추가.이 미들웨어는 Redux Store가 dispatch되기 전에 실행되며, 상태를 sessionStorage에 저장한다. 이를 통해 사용자가 새로고침하거나 브라우저를 닫았을 때 상태가 유지되도록 한다.
+- 사용자가 장바구니를 새로고침하면 장바구니의 내용이 사라지는 것을 방지하기 위해 `sessionStorageMiddleware`라는 미들웨어를 추가.이 미들웨어는 Redux Store가 dispatch되기 전에 실행되며, 상태를 sessionStorage에 저장한다. 이를 통해 사용자가 새로고침하거나 브라우저를 닫았을 때 상태가 유지되도록 한다.
 
 3. ChakraUi의 Toast alert 사용
 
@@ -92,7 +92,7 @@ npm run dev
 
 5. ChakraUi의 <NumberInput/> 사용해서 장바구니 수량 변경
 
-- 수량 버튼에 아무것도 입력하지 않으면, 해당 값이 **`undefined`**로 전달되어 `NaN`이 발생. 잘못된 값이 들어왔을 경우 1로 처리
+- 수량 버튼에 아무것도 입력하지 않으면, 해당 값이 `undefined`로 전달되어 `NaN`이 발생. 잘못된 값이 들어왔을 경우 1로 처리
 
 6. 장바구니 수량 및 총 금액 계산 방식
 
