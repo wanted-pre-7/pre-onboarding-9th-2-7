@@ -1,13 +1,22 @@
 import { Center, Container, Text } from '@chakra-ui/react';
-import { useAppSelector } from '../app/hook';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../app/hook';
+import { cartSliceAciton } from '../app/store';
 import Item from '../components/Item';
 
 const CartPage = () => {
+  const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cartSlice);
 
-  const totalPrice = cartItems
-    .map((el) => el.price * el.cnt)
-    .reduce((acc, cur) => acc + cur, 0);
+  const totalPrice = cartItems.reduce(
+    (acc, cart) => acc + cart.price * cart.cnt,
+    0,
+  );
+
+  useEffect(() => {
+    const items = sessionStorage.getItem('cart');
+    if (items) dispatch(cartSliceAciton.getSessionItem(JSON.parse(items)));
+  }, []);
 
   return (
     <Center display="flex" flexDir="column" p="20px">

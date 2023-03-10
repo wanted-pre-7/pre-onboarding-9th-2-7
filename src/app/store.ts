@@ -12,18 +12,25 @@ const cartSlice = createSlice({
   name: 'cartSlice',
   initialState,
   reducers: {
-    addItem: (state: IProductType[], action: PayloadAction<IStateType>) => {
-      state.push(action.payload);
+    getSessionItem: (state, action: PayloadAction<IStateType[]>) => {
+      state = [...action.payload];
+      return state;
+    },
+    addItem: (state: IStateType[], action: PayloadAction<IStateType>) => {
+      state.push({ ...action.payload, cnt: 1 });
+      sessionStorage.setItem('cart', JSON.stringify(state));
     },
     deleteItem: (state: IStateType[], action: PayloadAction<number>) => {
-      return [...state].filter((el) => el.idx !== action.payload);
+      const newState = state.filter((el) => el.idx !== action.payload);
+      sessionStorage.setItem('cart', JSON.stringify(newState));
     },
     updateItem: (state, action) => {
-      return [...state].map((el) =>
+      const newState = [...state].map((el) =>
         el.idx === action.payload.idx
           ? { ...el, cnt: action.payload.cnt }
           : { ...el },
       );
+      sessionStorage.setItem('cart', JSON.stringify(newState));
     },
   },
 });
