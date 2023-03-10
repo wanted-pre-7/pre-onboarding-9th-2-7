@@ -1,14 +1,14 @@
-# 제목 없음
-
 # 원티드 프리온보딩 1주차
 
-<img src="[https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white](https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)"/> <img src="[https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white)"/>
-<img src="[https://img.shields.io/badge/-Vite-646CFF?style=flat-square&logo=vite&logoColor=white](https://img.shields.io/badge/-Vite-646CFF?style=flat-square&logo=vite&logoColor=white)"/>
-<img src="[https://img.shields.io/badge/-Chakra_UI-319795?style=flat-square&logo=chakraui&logoColor=white](https://img.shields.io/badge/-Chakra_UI-319795?style=flat-square&logo=chakraui&logoColor=white)"/>
-<img src="[https://img.shields.io/badge/-Emotion-DB7093?style=flat-square&logo=emotion&logoColor=white](https://img.shields.io/badge/-Emotion-DB7093?style=flat-square&logo=emotion&logoColor=white)"/>
-<img src="[https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=Axios&logoColor=white](https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=Axios&logoColor=white)"/> <img src="[https://img.shields.io/badge/React](https://img.shields.io/badge/React) Router-CA4245?style=flat-square&logo=React Router&logoColor=white">
-<img src="[https://img.shields.io/badge/-Redux_Toolkit-764ABC?style=flat-square&logo=redux&logoColor=white](https://img.shields.io/badge/-Redux_Toolkit-764ABC?style=flat-square&logo=redux&logoColor=white)"/>
-<img src="[https://img.shields.io/badge/-React_Query-ff2660?style=flat-square&logo=react&logoColor=white](https://img.shields.io/badge/-React_Query-ff2660?style=flat-square&logo=react&logoColor=white)"/>
+<img src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white"/> 
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>
+<img src="https://img.shields.io/badge/-Vite-646CFF?style=flat-square&logo=vite&logoColor=white"/>
+<img src="https://img.shields.io/badge/-Chakra_UI-319795?style=flat-square&logo=chakraui&logoColor=white"/>
+<img src="https://img.shields.io/badge/-Emotion-DB7093?style=flat-square&logo=emotion&logoColor=white"/>
+<img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=Axios&logoColor=white"/>
+ <img src="https://img.shields.io/badge/React Router-CA4245?style=flat-square&logo=React Router&logoColor=white">
+<img src="https://img.shields.io/badge/-Redux_Toolkit-764ABC?style=flat-square&logo=redux&logoColor=white"/>
+<img src="https://img.shields.io/badge/-React_Query-ff2660?style=flat-square&logo=react&logoColor=white"/>
 
 </br>
 
