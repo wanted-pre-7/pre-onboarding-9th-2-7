@@ -1,6 +1,7 @@
 import {
   Box,
   Container,
+  Grid,
   IconButton,
   Popover,
   PopoverArrow,
@@ -9,9 +10,9 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
-  SimpleGrid,
   Spinner,
   Text,
+  Wrap,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import FilterIcon from "../components/common/FilterIcon";
@@ -61,39 +62,52 @@ const Home = () => {
   }
   return (
     <Box w="80%" m="auto" p="30px" color="gray.800">
-      <Popover placement="bottom-start">
-        <PopoverTrigger>
-          <IconButton aria-label="Search database" icon={<FilterIcon />} />
-        </PopoverTrigger>
-        <PopoverContent w="600px">
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverHeader border="0">
-            <Text as="b">Filter</Text>
-          </PopoverHeader>
-          <PopoverBody>
-            <Filter
-              minPrice={minPrice}
-              maxPrice={maxPrice}
-              setPrice={setPrice}
-              spaces={spaces}
-              setSpaces={setSpaces}
-              placeList={[...new Set(placeList)]}
+      <Wrap justify="right">
+        <Popover placement="bottom-start">
+          <PopoverTrigger>
+            <IconButton
+              aria-label="Search database"
+              icon={<FilterIcon height="25" />}
             />
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-
+          </PopoverTrigger>
+          <PopoverContent w="600px">
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverHeader border="0">
+              <Text as="b">Filter</Text>
+            </PopoverHeader>
+            <PopoverBody>
+              <Filter
+                minPrice={minPrice}
+                maxPrice={maxPrice}
+                setPrice={setPrice}
+                spaces={spaces}
+                setSpaces={setSpaces}
+                placeList={[...new Set(placeList)]}
+              />
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+      </Wrap>
       <Box mt="20px">
         <Text fontSize="20px" as="b">
           상품 ({products?.length})
         </Text>
         {products?.length ? (
-          <SimpleGrid w="100%" minChildWidth="200px" spacing="20px" mt="10px">
+          <Grid
+            mt="5"
+            gap={4}
+            templateColumns={{
+              sm: "1fr",
+              md: "1fr 1fr",
+              lg: "repeat(3, 1fr)",
+              xl: "repeat(4, 1fr)",
+            }}
+          >
             {products?.map((item) => (
               <Product key={item.idx} product={item} />
             ))}
-          </SimpleGrid>
+          </Grid>
         ) : (
           <Container centerContent>해당하는 상품이 없습니다.</Container>
         )}

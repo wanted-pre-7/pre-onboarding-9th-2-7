@@ -1,4 +1,4 @@
-import { Box, Skeleton, SkeletonText } from "@chakra-ui/react";
+import { Box, HStack, Skeleton, SkeletonText, VStack } from "@chakra-ui/react";
 
 const SkeletonCard = ({ length }: { length: number }) => {
   return (
@@ -6,25 +6,21 @@ const SkeletonCard = ({ length }: { length: number }) => {
       {Array(length)
         .fill(1)
         .map((_, index) => (
-          <Box
-            key={index}
-            minW="200px"
-            border="1px"
-            borderRadius="4px"
-            borderColor="gray.100"
-            overflow="hidden"
-          >
-            <Skeleton height={{ sm: "300px", md: "200px" }} borderRadius="lg" />
-            <Box>
-              <SkeletonText
-                mt="4"
-                width="100%"
-                noOfLines={4}
-                spacing="4"
-                skeletonHeight="5"
-              />
+          <VStack key={index} alignItems={"flex-start"}>
+            <Box mb={3} borderWidth="0.5px">
+              <Skeleton height="400px" width="400px" borderRadius="lg" />
+              <Box padding={5}>
+                <SkeletonText
+                  mt="4"
+                  width="100%"
+                  noOfLines={4}
+                  spacing="4"
+                  skeletonHeight="5"
+                />
+                <HStack mt="5"></HStack>
+              </Box>
             </Box>
-          </Box>
+          </VStack>
         ))}
     </>
   );
