@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import reserveList from "../slice/reserveList";
+import reserveList from "../features/reserveList";
 // ...
 
 const store = configureStore({

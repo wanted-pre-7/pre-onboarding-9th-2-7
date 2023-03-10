@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../hook";
-import Filter from "../main/Filter";
+import { useAppSelector } from "../../app/hook";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -19,7 +18,6 @@ const Header = () => {
       <Logo src="src/assets/logo.png" alt="logo" />
       {currentPath === "/main" && (
         <HeaderRight>
-          <Filter />
           <CartWrap>
             <CartIcon
               onClick={goToCart}

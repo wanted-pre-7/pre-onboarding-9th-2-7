@@ -10,8 +10,8 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import { useAppDispatch, useAppSelector } from "../../hook";
-import { reserveActions } from "../../slice/reserveList";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
+import { reserveActions } from "../../features/reserveList";
 import type { IProduct } from "../../types";
 import DetailModal from "./DetailModal";
 

@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { useMemo } from "react";
+import { useAppSelector } from "../app/hook";
 import Header from "../components/common/Header";
 import ReserveItem from "../components/reservations/ReserveItem";
-import { useAppSelector } from "../hook";
 
 const Reservations = () => {
   const reserveList = useAppSelector((state) => state.reserveList);
