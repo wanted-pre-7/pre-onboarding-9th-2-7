@@ -1,23 +1,22 @@
-import { Center, Container, Text } from "@chakra-ui/react";
+import { Button, Center, Container, Text } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../app/hook";
+import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../app/hook";
 import Item from "../components/Item";
-// import { addItems } from "../features/cartSlice";
+import getTotalPrice from "../utils/getTotalPrice";
 import theme from "../utils/theme";
 
 const CartPage = () => {
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const cartItems = useAppSelector((state) => state.cartSlice);
 
-  const totalPrice = cartItems.reduce(
-    (acc, cur) => acc + cur.price * cur.qty,
-    0,
-  );
+  const totalPrice = getTotalPrice(cartItems);
+
+  const handleClick = () => navigate("/main");
 
   return (
     <Center display="flex" flexDir="column" p="20px">
-      <Text as="b" fontSize={theme.sizes.xl}>
+      <Text as="b" fontSize={theme.sizes.xl} pt="80px">
         장바구니({cartItems.length})
       </Text>
       <Text fontSize={theme.sizes.lg} pb="30px">
@@ -27,7 +26,17 @@ const CartPage = () => {
         <Item key={item.idx} product={item} />
       ))}
       {!cartItems.length && (
-        <Container centerContent>장바구니에 상품이 없습니다.</Container>
+        <Container centerContent pt="30px">
+          장바구니에 상품이 없습니다.
+          <Button
+            onClick={handleClick}
+            mt="20px"
+            colorScheme="cyan"
+            variant="outline"
+          >
+            여행 상품 보기
+          </Button>
+        </Container>
       )}
     </Center>
   );
