@@ -12,29 +12,53 @@ import {
   NumberInputStepper,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
+import styled from "@emotion/styled";
+import { useState } from "react";
 import { useAppDispatch } from "../app/hook";
 import { deleteItem, updateItem } from "../features/cartSlice";
 import type { ICartStateType } from "../features/cartSlice";
-import { useState } from "react";
 import theme from "../utils/theme";
-import styled from "@emotion/styled";
 
 type PropsType = {
   product: ICartStateType;
 };
 
+const MAXIMUM_PURCHESES_ERROR_MESSAGE = "최대 구매 수량을 초과하였습니다.";
+
 const Item = ({ product }: PropsType) => {
+  const toast = useToast();
+
   const dispatch = useAppDispatch();
   const [value, setValue] = useState<number>(product?.qty);
 
   const handleClick = () => {
     dispatch(deleteItem(product.idx));
+
+    toast({
+      title: "성공적으로 삭제되었습니다.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "bottom-right",
+    });
   };
 
   const handleChange = (val: number) => {
-    setValue(val);
-    dispatch(updateItem({ ...product, qty: val }));
+    if (!val || val < 1) val = 1;
+
+    if (product.maximumPurchases < val) {
+      toast({
+        title: MAXIMUM_PURCHESES_ERROR_MESSAGE,
+        status: "error",
+        isClosable: true,
+        position: "top",
+      });
+    } else {
+      setValue(val);
+      dispatch(updateItem({ ...product, qty: val }));
+    }
   };
 
   return (
@@ -49,7 +73,8 @@ const Item = ({ product }: PropsType) => {
         objectFit="cover"
         maxW={{ base: "100%", sm: "200px" }}
         src={product?.mainImage}
-        alt={product?.mainImage}
+        alt={product?.name}
+        fallbackSrc="https://media.istockphoto.com/id/1147544807/ko/%EB%B2%A1%ED%84%B0/%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4-%EC%8D%B8%EB%84%A4%EC%9D%BC-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%B2%A1%ED%84%B0-%EA%B7%B8%EB%9E%98%ED%94%BD.jpg?s=612x612&w=0&k=20&c=d0Ddt3qdtkhxPvpInjBRzLWFjODlfSh3IkKAB6YZwC8="
       />
       <Stack>
         <CardBody minH="320px">
