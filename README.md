@@ -75,11 +75,10 @@ npm run dev
 
 ## convention
 
-## **git Flow**
-
-- branch : 기능별 작업
-- main(master) : 최종 배포
-<img src="[https://user-images.githubusercontent.com/80516736/221170041-8b7d3762-1152-4407-a600-d9fe1e87e08d.png](https://user-images.githubusercontent.com/80516736/221170041-8b7d3762-1152-4407-a600-d9fe1e87e08d.png)">
+### **git Flow**
+* branch : 기능별 작업
+* main(master) : 최종 배포
+<img src="https://user-images.githubusercontent.com/80516736/221170041-8b7d3762-1152-4407-a600-d9fe1e87e08d.png">
 
 ## **Commit Message Pre-fix**
 
@@ -93,7 +92,8 @@ npm run dev
 
 ## 회고 및 회의록
 
-[회고](https://www.notion.so/1-070861fff8d444b1ae9639b392c16314)[7팀 과제 수행 회의록](https://www.notion.so/cfbf7c8530ab43f29695dcac5923fd1c)[git wiki](https://github.com/wanted-pre-7/wanted-pre-onboarding-frontend/wiki)
+[회고](https://solwork.notion.site/2-59373cd4edb94b02ae54c352caaaaedc)
+[기술 및 기능 리뷰](https://www.notion.so/cfbf7c8530ab43f29695dcac5923fd1c)
 
 ## 팀원
 
