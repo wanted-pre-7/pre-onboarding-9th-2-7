@@ -20,7 +20,9 @@ npm i
 npm run dev
 ```
 
-### **요구사항**
+<br/>
+
+## 요구사항
 > 
 1. 유저가 페이지를 처음 열었을 때 “/main”에 도착하도록 만들어주세요
     - main에는 여행 상품 정보 (mock JSON) 를 활용하여 여행 상품 정보를 노출해야합니다.
@@ -42,6 +44,7 @@ npm run dev
 ## 🌟 최종 결과
 
 
+<br/>
 
 ## **작업 방식 안내**
 
@@ -73,6 +76,8 @@ npm run dev
 - 장바구니에 담긴 상품의 수량이 변경될 때마다, 해당 상품의 가격도 변동. 이를 효율적으로 처리하기 위해 유틸 함수를 구현
 8. 배포는  public에 json파일을 두고 fetch  `baseURL: '/mock/mock_data.json` 을 통해 데이터 조회
 
+<br/>
+
 ## convention
 
 ### **git Flow**
@@ -90,10 +95,14 @@ npm run dev
 - test: 테스트 추가/수정
 - chore: 빌드 관련 코드 수정
 
+<br/>
+
 ## 회고 및 회의록
 
 [회고](https://solwork.notion.site/2-59373cd4edb94b02ae54c352caaaaedc) <br/>
 [기술 및 기능 리뷰](https://www.notion.so/solwork/5416605e445a439d8651621726055820?pvs=4)
+
+<br/>
 
 ## 팀원
 
